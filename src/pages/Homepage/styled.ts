@@ -47,6 +47,35 @@ export const ThirdSlideWrapper = styled(SlideWrapper)`
   align-items: center;
 `
 
+// export const FirstSlideWrapper = styled(SlideWrapper)`
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   background-image: url('assets/Project2501_massive_giant_portal_in_a_dense_forest_environment__da72e786-9729-40b2-83c5-f30067278cd8.png');
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// `
+
+// export const SecondSlideWrapper = styled(SlideWrapper)`
+//   display: flex;
+//   align-items: center;
+//   background-image: url('assets/Project2501_massive_giant_portal_in_a_dense_forest_environment__da72e786-9729-40b2-83c5-f30067278cd9.png');
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// `
+
+// export const ThirdSlideWrapper = styled(SlideWrapper)`
+//   display: flex;
+//   justify-content: flex-start;
+//   align-items: center;
+//   background-image: url('assets/Project2501_massive_giant_portal_in_a_desolate_ice_frost_enviro_a6f6d55c-8893-4729-adf3-381df54a77d6.png');
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// `
+
 export const BackgroundImage = styled.img`
   position: absolute;
   top: 0;
