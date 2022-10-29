@@ -19,7 +19,8 @@ const Homepage = () => {
   window.addEventListener('scroll', handleScroll)
 
   return (
-    <div style={{ marginTop: '10vh', width: '100vw' }}>
+    <div style={{ width: '100vw' }}>
+      {/* <div style={{ marginTop: '10vh', width: '100vw' }}> */}
       <FirstSlideWrapper>
         <BackgroundImage src='assets/Project2501_massive_giant_portal_in_a_dense_forest_environment__da72e786-9729-40b2-83c5-f30067278cd8.png' />
 

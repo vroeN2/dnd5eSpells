@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { LogoWrapper, MenuItem, MenuWrapper, NavbarWrapper } from './styled'
+import { Link, Outlet } from 'react-router-dom'
 
 const Navbar = () => {
   const [scrollY, setScrollY] = useState(0)
-  const [navbarBackgroundColor, setNavbarBackgroundColor] = useState('#ffffff')
+  const [navbarBackgroundColor, setNavbarBackgroundColor] = useState('transparent')
 
   const changeScrollY = () => {
     setScrollY(window.pageYOffset)
@@ -20,23 +21,32 @@ const Navbar = () => {
   })
 
   useEffect(() => {
-    setNavbarBackgroundColor(scrollY >= 50 ? 'transparent' : '#ffffff')
+    setNavbarBackgroundColor(scrollY > 0 ? '#ffffff' : 'transparent')
+    // setNavbarBackgroundColor(scrollY >= 50 ? 'transparent' : '#ffffff')
   }, [scrollY])
 
   return (
-    <NavbarWrapper color={navbarBackgroundColor}>
-      <LogoWrapper>DnD Spells List</LogoWrapper>
+    <>
+      <NavbarWrapper color={navbarBackgroundColor}>
+        <Link style={{ textDecoration: 'none' }} to='/'>
+          <LogoWrapper color={navbarBackgroundColor}>DnD Spells List</LogoWrapper>
+        </Link>
 
-      <MenuWrapper style={{ color: 'inherit' }}>
-        <MenuItem style={{ marginRight: '2rem', color: 'inherit' }} color={navbarBackgroundColor}>
-          All spells
-        </MenuItem>
+        <MenuWrapper>
+          <Link style={{ textDecoration: 'none' }} to='/spells'>
+            <MenuItem style={{ marginRight: '2rem' }} color={navbarBackgroundColor}>
+              All spells
+            </MenuItem>
+          </Link>
 
-        <MenuItem style={{ color: 'inherit' }} color={navbarBackgroundColor}>
-          Saved
-        </MenuItem>
-      </MenuWrapper>
-    </NavbarWrapper>
+          <Link style={{ textDecoration: 'none' }} to='/saved'>
+            <MenuItem color={navbarBackgroundColor}>Saved</MenuItem>
+          </Link>
+        </MenuWrapper>
+      </NavbarWrapper>
+
+      <Outlet />
+    </>
   )
 }
 
