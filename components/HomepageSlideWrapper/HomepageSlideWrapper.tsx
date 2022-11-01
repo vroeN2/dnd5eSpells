@@ -1,32 +1,38 @@
 import React from "react";
-import { FirstSpacingDiv, SecondSpacingDiv, SlideWrapper } from "./styled";
+import { SlideDescription, SlideHeader, SlideWrapper } from "./styled";
+import CSS from "csstype";
 
 interface HomepageSlideWrapperProps {
-  children: React.ReactNode;
   url: string;
   justify: string;
-  spacingDiv: "first" | "second" | "none";
+  textContent: {
+    header: {
+      headerText: string;
+      headerStyle: CSS.Properties;
+    };
+    description: {
+      descriptionText: string;
+      descriptionStyle: CSS.Properties;
+    };
+  };
 }
 
 const HomepageSlideWrapper: React.FC<HomepageSlideWrapperProps> = ({
-  children,
   url,
   justify,
-  spacingDiv,
+  textContent,
 }) => {
-  const spacer =
-    spacingDiv === "first" ? (
-      <FirstSpacingDiv />
-    ) : spacingDiv === "second" ? (
-      <SecondSpacingDiv />
-    ) : (
-      <></>
-    );
+  const { header, description } = textContent;
+  const { headerText, headerStyle } = header;
+  const { descriptionText, descriptionStyle } = description;
+
   return (
     <SlideWrapper key={url} bgURL={url} justifyContent={justify}>
-      {children}
+      <SlideHeader style={headerStyle}>{headerText}</SlideHeader>
 
-      {spacer}
+      <SlideDescription style={descriptionStyle}>
+        {descriptionText}
+      </SlideDescription>
     </SlideWrapper>
   );
 };

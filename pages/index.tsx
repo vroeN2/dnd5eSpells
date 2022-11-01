@@ -1,10 +1,20 @@
 import { useState } from "react";
 import HomepageSlideWrapper from "../components/HomepageSlideWrapper";
+import CSS from "csstype";
 
 interface BackgroundImage {
   url: string;
   justify: string;
-  spacingDiv: "first" | "second" | "none";
+  textContent: {
+    header: {
+      headerText: string;
+      headerStyle: CSS.Properties;
+    };
+    description: {
+      descriptionText: string;
+      descriptionStyle: CSS.Properties;
+    };
+  };
 }
 
 export default function Home() {
@@ -14,19 +24,57 @@ export default function Home() {
   // window.addEventListener("scroll", handleScroll);
   const backgroundImages: BackgroundImage[] = [
     {
-      url: "assets/Project2501_massive_giant_portal_in_a_dense_forest_environment__da72e786-9729-40b2-83c5-f30067278cd8.png",
+      url: "assets/bg_1.png",
       justify: "space-between",
-      spacingDiv: "first",
+      textContent: {
+        header: {
+          headerText: "Find your spells with ease",
+          headerStyle: {
+            marginLeft: "5vw",
+          },
+        },
+        description: {
+          descriptionText:
+            "Find desired Dungeons and Dragons spell with no problem",
+          descriptionStyle: {
+            marginRight: "10vw",
+          },
+        },
+      },
     },
     {
-      url: "assets/Project2501_massive_giant_portal_in_a_dense_forest_environment__da72e786-9729-40b2-83c5-f30067278cd9.png",
-      justify: "normal",
-      spacingDiv: "second",
+      url: "assets/bg_2.png",
+      justify: "center",
+      textContent: {
+        header: {
+          headerText: "Just start searching",
+          headerStyle: {},
+        },
+        description: {
+          descriptionText: `And use build-in filters to make it even quicker It is that easy`,
+          descriptionStyle: {
+            width: "45%",
+            marginTop: "3%",
+          },
+        },
+      },
     },
     {
-      url: "assets/Project2501_massive_giant_portal_in_a_desolate_ice_frost_enviro_a6f6d55c-8893-4729-adf3-381df54a77d6.png",
+      url: "assets/bg_3.png",
       justify: "flex-start",
-      spacingDiv: "none",
+      textContent: {
+        header: {
+          headerText: "Save your most searched",
+          headerStyle: {},
+        },
+        description: {
+          descriptionText: "And access them with one click",
+          descriptionStyle: {
+            width: "45%",
+            marginTop: "1%",
+          },
+        },
+      },
     },
   ];
 
@@ -37,15 +85,9 @@ export default function Home() {
           <HomepageSlideWrapper
             justify={image.justify}
             url={image.url}
-            spacingDiv={image.spacingDiv}
             key={image.url}
-          >
-            <>
-              <div>TEST TEST</div>
-              <div>TEST TEST</div>
-              <div>TEST TEST</div>
-            </>
-          </HomepageSlideWrapper>
+            textContent={image.textContent}
+          />
         );
       })}
     </>
