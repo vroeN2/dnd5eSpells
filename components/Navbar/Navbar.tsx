@@ -35,17 +35,17 @@ const Navbar = () => {
         </Link>
 
         <MenuWrapper>
-          <Link style={{ textDecoration: "none" }} href="/spells">
+          <Link style={{ textDecoration: "none" }} href="/arcanes">
             <MenuItem
               style={{ marginRight: "2rem" }}
               color={navbarBackgroundColor}
             >
-              All spells
+              Arcane List
             </MenuItem>
           </Link>
 
-          <Link style={{ textDecoration: "none" }} href="/saved">
-            <MenuItem color={navbarBackgroundColor}>Saved</MenuItem>
+          <Link style={{ textDecoration: "none" }} href="/spellbook">
+            <MenuItem color={navbarBackgroundColor}>Spellbook</MenuItem>
           </Link>
         </MenuWrapper>
       </NavbarWrapper>

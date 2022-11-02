@@ -36,8 +36,8 @@ const WrongPage = () => {
           <ErrorPageLinks>go back to homepage</ErrorPageLinks>
         </Link>{" "}
         or{" "}
-        <Link href={"/spells"}>
-          <ErrorPageLinks> go back to spells list</ErrorPageLinks>
+        <Link href={"/arcanes"}>
+          <ErrorPageLinks> go back to the list of arcanes</ErrorPageLinks>
         </Link>
       </Title>
     </ErrorWrapper>

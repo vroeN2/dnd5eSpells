@@ -1,33 +1,17 @@
 import React from "react";
 import { SlideDescription, SlideHeader, SlideWrapper } from "./styled";
-import CSS from "csstype";
+import { BackgroundImage } from "../../pages";
 
-interface HomepageSlideWrapperProps {
-  url: string;
-  justify: string;
-  textContent: {
-    header: {
-      headerText: string;
-      headerStyle: CSS.Properties;
-    };
-    description: {
-      descriptionText: string;
-      descriptionStyle: CSS.Properties;
-    };
-  };
-}
-
-const HomepageSlideWrapper: React.FC<HomepageSlideWrapperProps> = ({
+const HomepageSlideWrapper: React.FC<BackgroundImage> = ({
   url,
-  justify,
   textContent,
 }) => {
-  const { header, description } = textContent;
+  const { header, description, style } = textContent;
   const { headerText, headerStyle } = header;
   const { descriptionText, descriptionStyle } = description;
 
   return (
-    <SlideWrapper key={url} bgURL={url} justifyContent={justify}>
+    <SlideWrapper key={url} bgURL={url} style={style}>
       <SlideHeader style={headerStyle}>{headerText}</SlideHeader>
 
       <SlideDescription style={descriptionStyle}>

@@ -8,8 +8,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/saved/:id",
-        destination: "/spells/:id",
+        source: "/spellbook/:id",
+        destination: "/arcanes/:id",
       },
     ];
   },
