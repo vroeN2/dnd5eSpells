@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const NavbarWrapper = styled.div`
-  z-index: 3;
-  width: 100vw;
+  z-index: 1;
+  width: 100%;
   height: 10vh;
   background: ${(props) => props.color};
   box-shadow: ${(props) =>
@@ -10,7 +10,7 @@ export const NavbarWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  transition: 0.3s all ease;
+  transition: 0.15s all ease;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;

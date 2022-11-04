@@ -108,6 +108,7 @@ export default function Home() {
         <meta name="description" content="DnD 5 spell manager" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       {backgroundImages.map((image: BackgroundImage) => {
         return (
           <HomepageSlideWrapper

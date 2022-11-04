@@ -11,7 +11,7 @@ const HomepageSlideWrapper: React.FC<BackgroundImage> = ({
   const { descriptionText, descriptionStyle } = description;
 
   return (
-    <SlideWrapper key={url} bgURL={url} style={style}>
+    <SlideWrapper bgURL={url} style={style}>
       <SlideHeader style={headerStyle}>{headerText}</SlideHeader>
 
       <SlideDescription style={descriptionStyle}>
