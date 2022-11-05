@@ -1,4 +1,4 @@
-import { Box } from "grommet";
+import { Box } from "@mui/material";
 import styled from "styled-components";
 
 export const SpellcardWrapper = styled(Box)`

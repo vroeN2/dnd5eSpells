@@ -1,16 +1,20 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import styles from "../../styles/Home.module.css";
 import {
   ArcanesWrapper,
   ListWrapper,
   SearchBar,
+  SearchbarContent,
   SearchbarWrapper,
+  FilterSelect,
+  FilterCheckbox,
+  CheckboxLabel,
+  SelectOption,
 } from "./styled";
-import { Select } from "grommet";
 import axios from "../../utils/axios";
 import { Spell } from "../../interfaces/Spell";
 import Spellcard from "../../components/Spellcard";
+import { FormControlLabel } from "@mui/material";
 
 interface FilterValues {
   textContent: string;
@@ -37,31 +41,9 @@ const Arcanes = ({ spells }: ArcanesProps) => {
     ritual: null,
   });
 
-  const [scrollY, setScrollY] = useState(0);
-  const [navbarBackgroundColor, setNavbarBackgroundColor] =
-    useState("transparent");
-
-  const changeScrollY = () => {
-    setScrollY(window.pageYOffset);
-  };
-
-  useEffect(() => {
-    function watchScroll() {
-      window.addEventListener("scroll", changeScrollY);
-    }
-    watchScroll();
-    return () => {
-      window.removeEventListener("scroll", changeScrollY);
-    };
-  });
-
   const handleTextFilter = (searchValue: string) => {
     setFilters({ ...filters, textContent: searchValue });
   };
-
-  useEffect(() => {
-    setNavbarBackgroundColor(scrollY > 0 ? "#ffffff" : "transparent");
-  }, [scrollY]);
 
   useEffect(() => {
     console.log(filters);
@@ -69,16 +51,62 @@ const Arcanes = ({ spells }: ArcanesProps) => {
 
   return (
     <ArcanesWrapper>
-      <SearchbarWrapper color={navbarBackgroundColor}>
-        <div style={{ width: "90vw" }}>
+      <SearchbarWrapper>
+        <SearchbarContent>
           <SearchBar
             placeholder="Spell name"
             value={filters.textContent}
             onChange={(event) => handleTextFilter(event.target.value)}
           />
 
-          <Select options={[]} />
-        </div>
+          <FilterSelect label="Class">
+            <SelectOption value={1}>TEST</SelectOption>
+          </FilterSelect>
+
+          <FilterSelect label="School of magic">
+            <SelectOption value={1}>TEST</SelectOption>
+          </FilterSelect>
+
+          <FilterSelect label="Spell level">
+            <SelectOption value={1}>TEST</SelectOption>
+          </FilterSelect>
+
+          <FormControlLabel
+            control={
+              <FilterCheckbox
+                sx={{
+                  "& .MuiSvgIcon-root": { fontSize: 28 },
+                  "&.Mui-checked": {
+                    color: "#23392E",
+                  },
+                }}
+                defaultChecked
+              />
+            }
+            label={
+              <CheckboxLabel style={{ color: "#1f1f1f" }}>
+                Concentration
+              </CheckboxLabel>
+            }
+          />
+
+          <FormControlLabel
+            control={
+              <FilterCheckbox
+                sx={{
+                  "& .MuiSvgIcon-root": { fontSize: 28 },
+                  "&.Mui-checked": {
+                    color: "#23392E",
+                  },
+                }}
+                defaultChecked
+              />
+            }
+            label={
+              <CheckboxLabel style={{ color: "#1f1f1f" }}>Ritual</CheckboxLabel>
+            }
+          />
+        </SearchbarContent>
       </SearchbarWrapper>
 
       <ListWrapper>

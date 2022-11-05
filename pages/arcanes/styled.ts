@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Box, TextInput } from "grommet";
+// import { Box, CheckBox, Select, TextInput } from "grommet";
+import { Checkbox, OutlinedInput, Select, Box, MenuItem } from "@mui/material";
 
 export const ArcanesWrapper = styled.div`
   width: 100vw;
@@ -22,30 +23,46 @@ export const ListWrapper = styled.div`
 
 export const SearchbarWrapper = styled(Box)`
   transition: 0.15s all ease;
-  background: ${(props) => props.color};
+  background: white;
   z-index: 3;
   width: 100vw;
-  height: 15vh;
+  height: 10vh;
   position: fixed;
-  top: 10vh;
+  top: 9vh;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  &:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    bottom: 1px;
-    z-index: 1;
-    box-shadow: ${(props) =>
-      props.color === "transparent" ? "0px" : "0px 1px 3px 1px #1d1d1d"};
-  }
+  border-bottom: 1px solid #1d1d1d;
 `;
 
-export const SearchBar = styled(TextInput)`
+export const SearchbarContent = styled.div`
+  width: 80%;
+  display: flex;
+  /* justify-content: flex-start; */
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const SearchBar = styled(OutlinedInput)`
+  color: #1f1f1f;
+  font-family: "Aclonica", sans-serif;
   width: 30vw;
-  background: white;
-  color: #111;
+`;
+
+export const FilterSelect = styled(Select)`
+  width: 10vw;
+  color: #1f1f1f;
+`;
+
+export const FilterCheckbox = styled(Checkbox)``;
+
+export const CheckboxLabel = styled.p`
+  color: #1f1f1f;
+  font-family: "Aclonica", sans-serif;
+`;
+
+export const SelectOption = styled(MenuItem)`
+  color: #1f1f1f;
+  font-family: "Aclonica", sans-serif;
 `;

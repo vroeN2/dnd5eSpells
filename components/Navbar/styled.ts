@@ -4,9 +4,7 @@ export const NavbarWrapper = styled.div`
   z-index: 1;
   width: 100%;
   height: 10vh;
-  background: ${(props) => props.color};
-  box-shadow: ${(props) =>
-    props.color === "transparent" ? "0px" : "0px 1px 5px #1d1d1d"};
+  background: white;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,6 +13,7 @@ export const NavbarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #1d1d1d;
 `;
 
 export const LogoWrapper = styled.div`
@@ -22,9 +21,7 @@ export const LogoWrapper = styled.div`
   margin-left: 5rem;
   font-size: 3.5rem;
   text-decoration: none;
-  color: ${(props) => (props.color === "transparent" ? "#ffffff" : "#1d1d1d")};
-  text-shadow: ${(props) =>
-    props.color === "transparent" ? "0px 0px 2px #1d1d1d" : "0px"};
+  color: #1d1d1d;
   cursor: pointer;
 `;
 
@@ -41,16 +38,14 @@ export const MenuItem = styled.button`
   border: none;
   font-size: 2.5rem;
   cursor: pointer;
-  color: ${(props) => (props.color === "#ffffff" ? "#1d1d1d" : "#ffffff")};
-  text-shadow: ${(props) =>
-    props.color === "transparent" ? "0px 0px 2px #1d1d1d" : "0px"};
+  color: #1d1d1d;
+
   &::after {
     content: "";
     width: 0px;
     height: 0.225rem;
     display: block;
-    background: ${(props) =>
-      props.color === "#ffffff" ? "#1d1d1d" : "#ffffff"};
+    background: #1d1d1d;
     transition: 0.1s;
   }
   &:hover::after {
