@@ -19,10 +19,6 @@ export interface BackgroundImage {
 }
 
 export default function Home() {
-  const [offset, setOffset] = useState(0);
-
-  const handleScroll = () => setOffset(window.pageYOffset);
-  // window.addEventListener("scroll", handleScroll);
   const backgroundImages: BackgroundImage[] = [
     {
       url: "assets/bg_1.png",

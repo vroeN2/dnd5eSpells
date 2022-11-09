@@ -41,3 +41,17 @@ export interface Damage {
   damage_type: School;
   damage_at_slot_level: { [key: string]: string };
 }
+
+export type Class =
+  | "Barbarian"
+  | "Bard"
+  | "Cleric"
+  | "Druid"
+  | "Fighter"
+  | "Monk"
+  | "Paladin"
+  | "Ranger"
+  | "Rogue"
+  | "Sorcerer"
+  | "Warlock"
+  | "Wizard";

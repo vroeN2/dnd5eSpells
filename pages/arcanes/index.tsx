@@ -8,19 +8,16 @@ import {
   SearchbarWrapper,
   FilterSelect,
   FilterCheckbox,
-  CheckboxLabel,
-  SelectOption,
 } from "./styled";
 import axios from "../../utils/axios";
 import { Spell } from "../../interfaces/Spell";
 import Spellcard from "../../components/Spellcard";
-import { FormControlLabel } from "@mui/material";
 
 interface FilterValues {
   textContent: string;
-  class: string | null;
-  school: string | null;
-  level: number | null;
+  class: string[] | null;
+  school: string[] | null;
+  level: number[] | null;
   concentration: boolean | null;
   ritual: boolean | null;
 }
@@ -30,8 +27,7 @@ export interface ArcanesProps {
 }
 
 const Arcanes = ({ spells }: ArcanesProps) => {
-  console.log("spells", spells);
-
+  const [filteredSpells, setFilteredSpells] = useState(spells);
   const [filters, setFilters] = useState<FilterValues>({
     textContent: "",
     class: null,
@@ -41,13 +37,45 @@ const Arcanes = ({ spells }: ArcanesProps) => {
     ritual: null,
   });
 
+  const options = [
+    { label: "test_label", value: "test_value" },
+    { label: "test2_label", value: "test2_value" },
+  ];
+
   const handleTextFilter = (searchValue: string) => {
     setFilters({ ...filters, textContent: searchValue });
   };
 
+  const handleClassFilter = (selectedClasses: string[]) => {
+    setFilters({ ...filters, class: selectedClasses });
+  };
+
+  const handleSchoolFilter = (selectedSchools: string[]) => {
+    setFilters({ ...filters, school: selectedSchools });
+  };
+
+  const handleLevelFilter = (selectedLevels: number[]) => {
+    setFilters({ ...filters, level: selectedLevels });
+  };
+
+  const handleConcentrationFilter = (isConcentration: boolean) => {
+    setFilters({ ...filters, concentration: isConcentration });
+  };
+
+  const handleRitualFilter = (isRitual: boolean) => {
+    setFilters({ ...filters, ritual: isRitual });
+  };
+
   useEffect(() => {
     console.log(filters);
-  }, [filters]);
+    setFilteredSpells(
+      spells.filter((spell) =>
+        spell.name
+          .toLocaleLowerCase()
+          .includes(filters.textContent.toLocaleLowerCase())
+      )
+    );
+  }, [filters, spells]);
 
   return (
     <ArcanesWrapper>
@@ -56,56 +84,45 @@ const Arcanes = ({ spells }: ArcanesProps) => {
           <SearchBar
             placeholder="Spell name"
             value={filters.textContent}
+            size="large"
             onChange={(event) => handleTextFilter(event.target.value)}
           />
 
-          <FilterSelect label="Class">
-            <SelectOption value={1}>TEST</SelectOption>
-          </FilterSelect>
-
-          <FilterSelect label="School of magic">
-            <SelectOption value={1}>TEST</SelectOption>
-          </FilterSelect>
-
-          <FilterSelect label="Spell level">
-            <SelectOption value={1}>TEST</SelectOption>
-          </FilterSelect>
-
-          <FormControlLabel
-            control={
-              <FilterCheckbox
-                sx={{
-                  "& .MuiSvgIcon-root": { fontSize: 28 },
-                  "&.Mui-checked": {
-                    color: "#23392E",
-                  },
-                }}
-                defaultChecked
-              />
-            }
-            label={
-              <CheckboxLabel style={{ color: "#1f1f1f" }}>
-                Concentration
-              </CheckboxLabel>
-            }
+          <FilterSelect
+            placeholder="Class"
+            mode="multiple"
+            allowClear
+            size="large"
+            options={options}
           />
 
-          <FormControlLabel
-            control={
-              <FilterCheckbox
-                sx={{
-                  "& .MuiSvgIcon-root": { fontSize: 28 },
-                  "&.Mui-checked": {
-                    color: "#23392E",
-                  },
-                }}
-                defaultChecked
-              />
-            }
-            label={
-              <CheckboxLabel style={{ color: "#1f1f1f" }}>Ritual</CheckboxLabel>
-            }
+          <FilterSelect
+            placeholder="School of magic"
+            mode="multiple"
+            allowClear
+            size="large"
+            options={options}
           />
+
+          <FilterSelect
+            placeholder="Spell level"
+            mode="multiple"
+            allowClear
+            size="large"
+            options={options}
+          />
+
+          <FilterCheckbox
+            onChange={(e) => handleConcentrationFilter(e.target.checked)}
+          >
+            Concentration
+          </FilterCheckbox>
+
+          <FilterCheckbox
+            onChange={(e) => handleRitualFilter(e.target.checked)}
+          >
+            Ritual
+          </FilterCheckbox>
         </SearchbarContent>
       </SearchbarWrapper>
 
@@ -116,7 +133,7 @@ const Arcanes = ({ spells }: ArcanesProps) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        {spells.map((spell) => {
+        {filteredSpells.map((spell) => {
           return <Spellcard spell={spell} key={spell.index} />;
         })}
       </ListWrapper>
@@ -127,7 +144,7 @@ const Arcanes = ({ spells }: ArcanesProps) => {
 export default Arcanes;
 
 export const getStaticProps = async () => {
-  const { data, status } = await axios.get("spells");
+  const { data, status } = await axios.get("/api/spells");
   return {
     props: {
       spells: data.results,
