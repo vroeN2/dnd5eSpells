@@ -9,17 +9,22 @@ import {
   FilterSelect,
   FilterCheckbox,
 } from "./styled";
-import axios from "../../utils/axios";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { Spell } from "../../interfaces/Spell";
 import Spellcard from "../../components/Spellcard";
+import {
+  // CreateListOfUniqueValues,
+  CreateOptionsObject,
+  CreateSelectList,
+} from "../../utils/createArray";
 
-interface FilterValues {
+export interface FilterValues {
   textContent: string;
-  class: string[] | null;
-  school: string[] | null;
-  level: number[] | null;
-  concentration: boolean | null;
-  ritual: boolean | null;
+  class: string[];
+  school: string[];
+  level: number[];
+  concentration: boolean;
+  ritual: boolean;
 }
 
 export interface ArcanesProps {
@@ -27,20 +32,45 @@ export interface ArcanesProps {
 }
 
 const Arcanes = ({ spells }: ArcanesProps) => {
+  console.log(spells);
   const [filteredSpells, setFilteredSpells] = useState(spells);
   const [filters, setFilters] = useState<FilterValues>({
     textContent: "",
-    class: null,
-    school: null,
-    level: null,
-    concentration: null,
-    ritual: null,
+    class: [],
+    school: [],
+    level: [],
+    concentration: false,
+    ritual: false,
   });
 
-  const options = [
-    { label: "test_label", value: "test_value" },
-    { label: "test2_label", value: "test2_value" },
-  ];
+  const classes = Array.from(
+    new Set(
+      spells
+        .map((singleSpell) =>
+          singleSpell.classes
+            .map((singleSpellClass) => singleSpellClass.name)
+            .flat()
+        )
+        .flat()
+    )
+  );
+  const schools = Array.from(
+    new Set(spells.map((singleSpell) => singleSpell.school.name).flat())
+  );
+  const levels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  const classOptions = CreateOptionsObject(classes);
+  const schoolOptions = CreateOptionsObject(schools);
+  const levelOptions = levels.map((level) => {
+    return {
+      label: level,
+      value: level,
+    };
+  });
+
+  useEffect(() => {
+    console.log("TEGO SZUKAM", schools);
+  }, [schools]);
 
   const handleTextFilter = (searchValue: string) => {
     setFilters({ ...filters, textContent: searchValue });
@@ -77,6 +107,11 @@ const Arcanes = ({ spells }: ArcanesProps) => {
     );
   }, [filters, spells]);
 
+  useEffect(() => {
+    console.log(filters);
+    setFilteredSpells(CreateSelectList(spells, filters));
+  }, [filters, spells]);
+
   return (
     <ArcanesWrapper>
       <SearchbarWrapper>
@@ -93,7 +128,10 @@ const Arcanes = ({ spells }: ArcanesProps) => {
             mode="multiple"
             allowClear
             size="large"
-            options={options}
+            options={classOptions}
+            // onChange={(selectedClass: string[]) =>
+            //   handleClassFilter(selectedClass)
+            // }
           />
 
           <FilterSelect
@@ -101,7 +139,7 @@ const Arcanes = ({ spells }: ArcanesProps) => {
             mode="multiple"
             allowClear
             size="large"
-            options={options}
+            options={schoolOptions}
           />
 
           <FilterSelect
@@ -109,7 +147,7 @@ const Arcanes = ({ spells }: ArcanesProps) => {
             mode="multiple"
             allowClear
             size="large"
-            options={options}
+            options={levelOptions}
           />
 
           <FilterCheckbox
@@ -144,10 +182,70 @@ const Arcanes = ({ spells }: ArcanesProps) => {
 export default Arcanes;
 
 export const getStaticProps = async () => {
-  const { data, status } = await axios.get("/api/spells");
+  const client = new ApolloClient({
+    uri: "https://www.dnd5eapi.co/graphql",
+    cache: new InMemoryCache(),
+  });
+
+  const { data } = await client.query({
+    query: gql`
+      query Spells {
+        spells(limit: 350) {
+          index
+          area_of_effect {
+            size
+            type
+          }
+          attack_type
+          casting_time
+          classes {
+            name
+          }
+          components
+          concentration
+          damage {
+            damage_at_character_level {
+              damage
+              level
+            }
+            damage_at_slot_level {
+              damage
+              level
+            }
+            damage_type {
+              name
+            }
+          }
+          dc {
+            type {
+              name
+            }
+            success
+          }
+          desc
+          duration
+          heal_at_slot_level {
+            healing
+            level
+          }
+          higher_level
+          level
+          material
+          name
+          range
+          ritual
+          school {
+            name
+            index
+          }
+        }
+      }
+    `,
+  });
+
   return {
     props: {
-      spells: data.results,
+      spells: data.spells,
     },
   };
 };
