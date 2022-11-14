@@ -32,7 +32,6 @@ export interface ArcanesProps {
 }
 
 const Arcanes = ({ spells }: ArcanesProps) => {
-  console.log(spells);
   const [filteredSpells, setFilteredSpells] = useState(spells);
   const [filters, setFilters] = useState<FilterValues>({
     textContent: "",
@@ -68,10 +67,6 @@ const Arcanes = ({ spells }: ArcanesProps) => {
     };
   });
 
-  useEffect(() => {
-    console.log("TEGO SZUKAM", schools);
-  }, [schools]);
-
   const handleTextFilter = (searchValue: string) => {
     setFilters({ ...filters, textContent: searchValue });
   };
@@ -97,18 +92,6 @@ const Arcanes = ({ spells }: ArcanesProps) => {
   };
 
   useEffect(() => {
-    console.log(filters);
-    setFilteredSpells(
-      spells.filter((spell) =>
-        spell.name
-          .toLocaleLowerCase()
-          .includes(filters.textContent.toLocaleLowerCase())
-      )
-    );
-  }, [filters, spells]);
-
-  useEffect(() => {
-    console.log(filters);
     setFilteredSpells(CreateSelectList(spells, filters));
   }, [filters, spells]);
 
@@ -129,9 +112,7 @@ const Arcanes = ({ spells }: ArcanesProps) => {
             allowClear
             size="large"
             options={classOptions}
-            // onChange={(selectedClass: string[]) =>
-            //   handleClassFilter(selectedClass)
-            // }
+            onChange={(listOfClasses) => handleClassFilter(listOfClasses)}
           />
 
           <FilterSelect
@@ -140,6 +121,7 @@ const Arcanes = ({ spells }: ArcanesProps) => {
             allowClear
             size="large"
             options={schoolOptions}
+            onChange={(listOfSchools) => handleSchoolFilter(listOfSchools)}
           />
 
           <FilterSelect
@@ -148,6 +130,7 @@ const Arcanes = ({ spells }: ArcanesProps) => {
             allowClear
             size="large"
             options={levelOptions}
+            onChange={(listOfLevels) => handleLevelFilter(listOfLevels)}
           />
 
           <FilterCheckbox
