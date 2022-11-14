@@ -18,7 +18,7 @@ const Spellcard = ({ spell }: SpellCardProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSaveSpell = () => {
-    console.log(spell);
+    console.log("saved!", spell);
   };
 
   const setDescription = (description: string) => {

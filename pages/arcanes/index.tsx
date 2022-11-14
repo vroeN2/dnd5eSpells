@@ -8,6 +8,7 @@ import {
   SearchbarWrapper,
   FilterSelect,
   FilterCheckbox,
+  ResetFiltersButton,
 } from "./styled";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { Spell } from "../../interfaces/Spell";
@@ -20,11 +21,11 @@ import {
 
 export interface FilterValues {
   textContent: string;
-  class: string[];
-  school: string[];
-  level: number[];
-  concentration: boolean;
-  ritual: boolean;
+  class: string | null;
+  school: string | null;
+  level: number | null;
+  concentration: boolean | null;
+  ritual: boolean | null;
 }
 
 export interface ArcanesProps {
@@ -32,15 +33,16 @@ export interface ArcanesProps {
 }
 
 const Arcanes = ({ spells }: ArcanesProps) => {
-  const [filteredSpells, setFilteredSpells] = useState(spells);
-  const [filters, setFilters] = useState<FilterValues>({
+  const filtersInitialValues = {
     textContent: "",
-    class: [],
-    school: [],
-    level: [],
-    concentration: false,
-    ritual: false,
-  });
+    class: null,
+    school: null,
+    level: null,
+    concentration: null,
+    ritual: null,
+  };
+  const [filteredSpells, setFilteredSpells] = useState(spells);
+  const [filters, setFilters] = useState<FilterValues>(filtersInitialValues);
 
   const classes = Array.from(
     new Set(
@@ -71,15 +73,15 @@ const Arcanes = ({ spells }: ArcanesProps) => {
     setFilters({ ...filters, textContent: searchValue });
   };
 
-  const handleClassFilter = (selectedClasses: string[]) => {
+  const handleClassFilter = (selectedClasses: string) => {
     setFilters({ ...filters, class: selectedClasses });
   };
 
-  const handleSchoolFilter = (selectedSchools: string[]) => {
+  const handleSchoolFilter = (selectedSchools: string) => {
     setFilters({ ...filters, school: selectedSchools });
   };
 
-  const handleLevelFilter = (selectedLevels: number[]) => {
+  const handleLevelFilter = (selectedLevels: number) => {
     setFilters({ ...filters, level: selectedLevels });
   };
 
@@ -108,29 +110,38 @@ const Arcanes = ({ spells }: ArcanesProps) => {
 
           <FilterSelect
             placeholder="Class"
-            mode="multiple"
             allowClear
             size="large"
             options={classOptions}
-            onChange={(listOfClasses) => handleClassFilter(listOfClasses)}
+            onChange={(selectedClass) =>
+              handleClassFilter(
+                typeof selectedClass === undefined ? "" : selectedClass
+              )
+            }
           />
 
           <FilterSelect
             placeholder="School of magic"
-            mode="multiple"
             allowClear
             size="large"
             options={schoolOptions}
-            onChange={(listOfSchools) => handleSchoolFilter(listOfSchools)}
+            onChange={(selectedSchool) =>
+              handleSchoolFilter(
+                typeof selectedSchool === undefined ? "" : selectedSchool
+              )
+            }
           />
 
           <FilterSelect
             placeholder="Spell level"
-            mode="multiple"
             allowClear
             size="large"
             options={levelOptions}
-            onChange={(listOfLevels) => handleLevelFilter(listOfLevels)}
+            onChange={(selectedLevel) =>
+              handleLevelFilter(
+                typeof selectedLevel === "number" ? selectedLevel : null
+              )
+            }
           />
 
           <FilterCheckbox
@@ -144,6 +155,15 @@ const Arcanes = ({ spells }: ArcanesProps) => {
           >
             Ritual
           </FilterCheckbox>
+
+          <ResetFiltersButton
+            type="link"
+            size="large"
+            onClick={() => setFilters(filtersInitialValues)}
+            // onClick={(e) => console.log(e)}
+          >
+            Reset filters
+          </ResetFiltersButton>
         </SearchbarContent>
       </SearchbarWrapper>
 
