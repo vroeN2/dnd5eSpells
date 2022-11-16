@@ -81,7 +81,7 @@ const Arcanes = ({ spells }: ArcanesProps) => {
     setFilters({ ...filters, school: selectedSchools });
   };
 
-  const handleLevelFilter = (selectedLevels: number) => {
+  const handleLevelFilter = (selectedLevels: number | null) => {
     setFilters({ ...filters, level: selectedLevels });
   };
 
@@ -113,9 +113,10 @@ const Arcanes = ({ spells }: ArcanesProps) => {
             allowClear
             size="large"
             options={classOptions}
+            value={filters.class}
             onChange={(selectedClass) =>
               handleClassFilter(
-                typeof selectedClass === undefined ? "" : selectedClass
+                typeof selectedClass !== "string" ? "" : selectedClass
               )
             }
           />
@@ -125,9 +126,10 @@ const Arcanes = ({ spells }: ArcanesProps) => {
             allowClear
             size="large"
             options={schoolOptions}
+            value={filters.school}
             onChange={(selectedSchool) =>
               handleSchoolFilter(
-                typeof selectedSchool === undefined ? "" : selectedSchool
+                typeof selectedSchool !== "string" ? "" : selectedSchool
               )
             }
           />
@@ -137,20 +139,23 @@ const Arcanes = ({ spells }: ArcanesProps) => {
             allowClear
             size="large"
             options={levelOptions}
+            value={filters.level}
             onChange={(selectedLevel) =>
               handleLevelFilter(
-                typeof selectedLevel === "number" ? selectedLevel : null
+                typeof selectedLevel !== "number" ? null : selectedLevel
               )
             }
           />
 
           <FilterCheckbox
+            checked={filters.concentration ?? false}
             onChange={(e) => handleConcentrationFilter(e.target.checked)}
           >
             Concentration
           </FilterCheckbox>
 
           <FilterCheckbox
+            checked={filters.ritual ?? false}
             onChange={(e) => handleRitualFilter(e.target.checked)}
           >
             Ritual
@@ -160,7 +165,6 @@ const Arcanes = ({ spells }: ArcanesProps) => {
             type="link"
             size="large"
             onClick={() => setFilters(filtersInitialValues)}
-            // onClick={(e) => console.log(e)}
           >
             Reset filters
           </ResetFiltersButton>
