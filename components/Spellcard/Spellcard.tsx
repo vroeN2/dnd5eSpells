@@ -8,7 +8,6 @@ import {
 import { GiSpellBook } from "react-icons/gi";
 import { Spell } from "../../interfaces/Spell";
 import Link from "next/link";
-import axios from "../../utils/axios";
 import { SingleSpell } from "../../api/apiTypes";
 
 interface SpellCardProps {
@@ -16,13 +15,10 @@ interface SpellCardProps {
 }
 
 const Spellcard = ({ spell }: SpellCardProps) => {
-  const { index, name, url } = spell;
-
   const [isLoading, setIsLoading] = useState(false);
-  const [spellDetails, setSpellDetails] = useState<SingleSpell>();
 
   const handleSaveSpell = () => {
-    console.log(index);
+    console.log("saved!", spell);
   };
 
   const setDescription = (description: string) => {
@@ -30,21 +26,6 @@ const Spellcard = ({ spell }: SpellCardProps) => {
       ? description.slice(0, 199) + " (...)"
       : description;
   };
-
-  const fetchSpellDetails = async () => {
-    try {
-      const res = await axios.get(url);
-      setSpellDetails(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetchSpellDetails();
-    setIsLoading(false);
-  }, [fetchSpellDetails]);
 
   return (
     <>
@@ -57,25 +38,23 @@ const Spellcard = ({ spell }: SpellCardProps) => {
               <GiSpellBook size="50px" onClick={handleSaveSpell} />
             </SaveIconWrapper>
 
-            <Link href={`/arcanes/${name}`}>
-              <h2>{name}</h2>
-              {spellDetails && (
+            <Link href={`/arcanes/${spell.name}`}>
+              <h2>{spell.name}</h2>
+              {spell && (
                 <>
                   <SpellDetails>
                     <span>Casting time:</span>
-                    {spellDetails.casting_time}
+                    {spell.casting_time}
                   </SpellDetails>
                   <SpellDetails>
                     <span>Range:</span>
-                    {spellDetails.range}
+                    {spell.range}
                   </SpellDetails>
                   <SpellDetails>
                     <span>Duration:</span>
-                    {spellDetails.duration}
+                    {spell.duration}
                   </SpellDetails>
-                  <SpellDetails>
-                    {setDescription(spellDetails.desc[0])}
-                  </SpellDetails>
+                  <SpellDetails>{setDescription(spell.desc[0])}</SpellDetails>
                 </>
               )}
             </Link>

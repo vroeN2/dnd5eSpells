@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Input, Select, Checkbox } from "antd";
+import { Input, Select, Checkbox, Button } from "antd";
 
 export const ArcanesWrapper = styled.div`
   width: 100vw;
@@ -54,4 +54,14 @@ export const FilterSelect = styled(Select)`
 
 export const FilterCheckbox = styled(Checkbox)`
   font-size: 1rem;
+`;
+
+export const ResetFiltersButton = styled(Button)`
+  font-size: 1rem;
+  margin-left: 1rem;
+  transition: 150ms all ease;
+
+  &:hover {
+    border: 1px solid;
+  }
 `;
