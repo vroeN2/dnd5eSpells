@@ -12,7 +12,10 @@ export const ArcanesWrapper = styled.div`
 `;
 
 export const ListWrapper = styled.div`
-  margin-top: 25vh;
+  position: absolute;
+  top: 19vh;
+  bottom: 0;
+  overflow-y: scroll;
   display: flex;
   align-items: center;
   padding: 0 10vw;
