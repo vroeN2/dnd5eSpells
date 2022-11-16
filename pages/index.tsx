@@ -2,6 +2,7 @@ import { useState } from "react";
 import HomepageSlideWrapper from "../components/HomepageSlideWrapper";
 import CSS from "csstype";
 import Head from "next/head";
+import { MainWrapper } from "../components/styled";
 
 export interface BackgroundImage {
   url: string;
@@ -98,7 +99,7 @@ export default function Home() {
   ];
 
   return (
-    <>
+    <MainWrapper>
       <Head>
         <title>DnD Spells List</title>
         <meta name="description" content="DnD 5 spell manager" />
@@ -114,6 +115,6 @@ export default function Home() {
           />
         );
       })}
-    </>
+    </MainWrapper>
   );
 }
