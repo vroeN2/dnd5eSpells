@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   SaveIconWrapper,
   SpellcardWrapper,
@@ -8,7 +8,6 @@ import {
 import { GiSpellBook } from "react-icons/gi";
 import { Spell } from "../../interfaces/Spell";
 import Link from "next/link";
-import { SingleSpell } from "../../api/apiTypes";
 
 interface SpellCardProps {
   spell: Spell;
