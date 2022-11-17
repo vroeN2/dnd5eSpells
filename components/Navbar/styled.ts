@@ -47,8 +47,7 @@ export const MenuItem = styled.button`
     height: 0.225rem;
     display: block;
     background: white;
-    transition: 0.1s;
-    border: 1px solid #1d1d1d;
+    transition: 0.1s all ease;
   }
   &:hover::after {
     width: 100%;

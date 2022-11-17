@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ArcanesWrapper, ListWrapper } from "./styled";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { Spell } from "../../interfaces/Spell";
@@ -24,14 +24,14 @@ const Arcanes = ({ spells }: ArcanesProps) => {
 
   return (
     <ArcanesWrapper>
-      <Searchbar spells={spells} setFilteredSpells={setFilteredSpells} />
+      <Head>
+        <title>List of Arcanes</title>
+        <meta name="description" content="List of spells from DnD 5" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
       <ListWrapper>
-        <Head>
-          <title>List of Arcanes</title>
-          <meta name="description" content="List of spells from DnD 5" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+        <Searchbar spells={spells} setFilteredSpells={setFilteredSpells} />
 
         {filteredSpells.map((spell) => {
           return <Spellcard spell={spell} key={spell.index} />;

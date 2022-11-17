@@ -21,3 +21,28 @@ export const ListWrapper = styled.div`
   justify-content: center;
   flex-wrap: wrap;
 `;
+
+export const SpellDetailsWrapper = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("assets/bg_2.png") no-repeat center center fixed;
+  background-size: cover;
+`;
+
+export const SingleSpellCardWrapper = styled.div`
+  height: 75vh;
+  width: 56vw;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #023020;
+  border-radius: 10px;
+  padding: 3rem 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;

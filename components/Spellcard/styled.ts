@@ -13,9 +13,11 @@ export const SpellcardWrapper = styled.div`
   height: 350px;
   margin: 2rem;
   transition: 0.15s ease all;
+  border: 1px solid #023020;
 
   &:hover {
     background: rgba(255, 255, 255, 1);
+    border-color: #1f1f1f;
   }
 `;
 
