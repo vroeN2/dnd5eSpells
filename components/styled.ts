@@ -15,3 +15,10 @@ export const HorizontalLine = styled.hr`
   margin-top: -1.5rem;
   background: white;
 `;
+
+export const MainWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow-y: scroll;
+`;

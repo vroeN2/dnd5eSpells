@@ -1,21 +1,23 @@
 import styled from "styled-components";
 
 export const SpellcardWrapper = styled.div`
-  background: white;
-  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.8);
   color: #0f0f0f;
   border-radius: 10px;
   display: flex;
   padding: 2rem;
+  box-sizing: border-box;
   position: relative;
   flex-direction: column;
   width: 500px;
-  height: 300px;
+  height: 350px;
   margin: 2rem;
   transition: 0.15s ease all;
+  border: 1px solid #023020;
 
   &:hover {
-    opacity: 1;
+    background: rgba(255, 255, 255, 1);
+    border-color: #1f1f1f;
   }
 `;
 
@@ -34,19 +36,21 @@ export const SaveIconWrapper = styled.div`
   }
 `;
 
-export const LoadingWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 4rem;
-`;
-
 export const SpellDetails = styled.p`
   color: #528173;
+  margin-bottom: 0.15rem;
+  font-size: 0.9375rem;
 
   & span {
+    font-size: 1rem;
     font-weight: 700;
     color: #23392e;
     margin-right: 0.25rem;
   }
+`;
+
+export const SpellName = styled.h2`
+  /* font-size: 1.625rem; */
+  font-size: 2.15rem;
+  margin-bottom: 0.15rem;
 `;

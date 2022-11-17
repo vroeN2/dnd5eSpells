@@ -1,67 +1,67 @@
-import React, { useEffect, useState } from "react";
+
+import React from "react";
 import {
-  LoadingWrapper,
   SaveIconWrapper,
   SpellcardWrapper,
   SpellDetails,
+  SpellName,
 } from "./styled";
 import { GiSpellBook } from "react-icons/gi";
 import { Spell } from "../../interfaces/Spell";
 import Link from "next/link";
-import { SingleSpell } from "../../api/apiTypes";
 
 interface SpellCardProps {
   spell: Spell;
 }
 
 const Spellcard = ({ spell }: SpellCardProps) => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleSaveSpell = () => {
     console.log("saved!", spell);
   };
 
   const setDescription = (description: string) => {
-    return description.length > 200
-      ? description.slice(0, 199) + " (...)"
+    return description.length > 125
+      ? description.slice(0, 124) + " (...)"
       : description;
   };
 
   return (
-    <>
-      <SpellcardWrapper>
-        {isLoading && <LoadingWrapper>LOADING...</LoadingWrapper>}
+    <SpellcardWrapper>
+      <SaveIconWrapper>
+        <GiSpellBook size="50px" onClick={handleSaveSpell} />
+      </SaveIconWrapper>
 
-        {!isLoading && (
+      <Link href={`/arcanes/${spell.name}`}>
+        <SpellName>{spell.name}</SpellName>
+        <SpellDetails style={{ marginBottom: "1.5rem" }}>
+          {spell.school.name.toLocaleLowerCase()}, level {spell.level}
+        </SpellDetails>
+        {spell && (
           <>
-            <SaveIconWrapper>
-              <GiSpellBook size="50px" onClick={handleSaveSpell} />
-            </SaveIconWrapper>
+            <SpellDetails>
+              <span>Casting time:</span>
+              {spell.casting_time}
+            </SpellDetails>
 
-            <Link href={`/arcanes/${spell.name}`}>
-              <h2>{spell.name}</h2>
-              {spell && (
-                <>
-                  <SpellDetails>
-                    <span>Casting time:</span>
-                    {spell.casting_time}
-                  </SpellDetails>
-                  <SpellDetails>
-                    <span>Range:</span>
-                    {spell.range}
-                  </SpellDetails>
-                  <SpellDetails>
-                    <span>Duration:</span>
-                    {spell.duration}
-                  </SpellDetails>
-                  <SpellDetails>{setDescription(spell.desc[0])}</SpellDetails>
-                </>
-              )}
-            </Link>
+            <SpellDetails>
+              <span>Range:</span>
+              {spell.range}
+            </SpellDetails>
+
+            <SpellDetails>
+              <span>Components:</span>
+              {spell.components.map((component) => component + " ")}
+            </SpellDetails>
+
+            <SpellDetails>
+              <span>Duration:</span>
+              {spell.duration}
+            </SpellDetails>
+            <SpellDetails>{setDescription(spell.desc[0])}</SpellDetails>
           </>
         )}
-      </SpellcardWrapper>
-    </>
+      </Link>
+    </SpellcardWrapper>
   );
 };
 
