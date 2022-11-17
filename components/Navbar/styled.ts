@@ -40,7 +40,6 @@ export const MenuItem = styled.button`
   cursor: pointer;
   color: white;
   text-shadow: 0px 0px 2px #1d1d1d;
-
   &::after {
     content: "";
     width: 0px;
