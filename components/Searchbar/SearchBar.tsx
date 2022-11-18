@@ -9,11 +9,11 @@ import {
   ResetFiltersButton,
 } from "./styled";
 import { CreateOptionsObject, CreateSelectList } from "../../utils/createArray";
-import { Spell } from "../../interfaces/Spell";
+import { LowDetailsSpell, Spell } from "../../interfaces/Spell";
 
 interface SearchbarInterface {
-  spells: Spell[];
-  setFilteredSpells: Dispatch<SetStateAction<Spell[]>>;
+  spells: LowDetailsSpell[];
+  setFilteredSpells: Dispatch<SetStateAction<LowDetailsSpell[]>>;
 }
 
 const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
@@ -78,7 +78,7 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
 
   useEffect(() => {
     setFilteredSpells(CreateSelectList(spells, filters));
-  }, [filters, spells]);
+  }, [filters, setFilteredSpells, spells]);
   return (
     <SearchbarWrapper>
       <SearchbarContent>

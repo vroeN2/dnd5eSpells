@@ -1,20 +1,10 @@
-import { Spell } from "../interfaces/Spell";
+import { LowDetailsSpell, Spell } from "../interfaces/Spell";
 import { FilterValues } from "../pages/arcanes";
 
-export const CreateSelectList = (spells: Spell[], filters: FilterValues) => {
-  console.log({
-    // spells: spells,
-    // filters: filters,
-    typeof: typeof filters.class,
-    to:
-      typeof filters.class === "string"
-        ? Object.values(spells[0].classes)
-            .map((profession: { name: string }) =>
-              profession.name.toLocaleLowerCase()
-            )
-            .includes(filters.class.toLocaleLowerCase())
-        : "NIE",
-  });
+export const CreateSelectList = (
+  spells: Spell[] | LowDetailsSpell[],
+  filters: FilterValues
+) => {
   return spells
     .filter((spell) =>
       spell.name
@@ -24,9 +14,21 @@ export const CreateSelectList = (spells: Spell[], filters: FilterValues) => {
     .filter((spell) =>
       typeof filters.class === "string"
         ? Object.values(spell.classes)
-            .map((profession: { name: string }) => {
-              return profession.name.toLocaleLowerCase();
-            })
+            .map(
+              (profession: {
+                name:
+                  | "Bard"
+                  | "Cleric"
+                  | "Druid"
+                  | "Paladin"
+                  | "Ranger"
+                  | "Sorcerer"
+                  | "Warlock"
+                  | "Wizard";
+              }) => {
+                return profession.name.toLocaleLowerCase();
+              }
+            )
             .includes(filters.class.toLocaleLowerCase())
         : spell
     )

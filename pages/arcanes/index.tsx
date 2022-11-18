@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { ArcanesWrapper, ListWrapper } from "./styled";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import { Spell } from "../../interfaces/Spell";
+import { LowDetailsSpell } from "../../interfaces/Spell";
 import Spellcard from "../../components/Spellcard";
 import Searchbar from "../../components/Searchbar";
 
@@ -16,7 +16,7 @@ export interface FilterValues {
 }
 
 export interface ArcanesProps {
-  spells: Spell[];
+  spells: LowDetailsSpell[];
 }
 
 const Arcanes = ({ spells }: ArcanesProps) => {
@@ -54,45 +54,15 @@ export const getStaticProps = async () => {
       query Spells {
         spells(limit: 350) {
           index
-          area_of_effect {
-            size
-            type
-          }
-          attack_type
           casting_time
           classes {
             name
           }
           components
           concentration
-          damage {
-            damage_at_character_level {
-              damage
-              level
-            }
-            damage_at_slot_level {
-              damage
-              level
-            }
-            damage_type {
-              name
-            }
-          }
-          dc {
-            type {
-              name
-            }
-            success
-          }
           desc
           duration
-          heal_at_slot_level {
-            healing
-            level
-          }
-          higher_level
           level
-          material
           name
           range
           ritual

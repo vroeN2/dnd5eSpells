@@ -33,7 +33,15 @@ export interface SingleSpell {
 
 export interface School {
   index: string;
-  name: string;
+  name:
+    | "Bard"
+    | "Cleric"
+    | "Druid"
+    | "Paladin"
+    | "Ranger"
+    | "Sorcerer"
+    | "Warlock"
+    | "Wizard";
   url: string;
 }
 

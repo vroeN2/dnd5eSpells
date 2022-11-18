@@ -9,7 +9,15 @@ export interface Spell {
   attack_type: string | null;
   casting_time: string;
   classes: {
-    name: string;
+    name:
+      | "Bard"
+      | "Cleric"
+      | "Druid"
+      | "Paladin"
+      | "Ranger"
+      | "Sorcerer"
+      | "Warlock"
+      | "Wizard";
   }[];
   components: ComponentType[];
   concentration: boolean;
@@ -47,6 +55,34 @@ export interface Spell {
   higher_level: string[] | null;
   level: number;
   material: string | null;
+  name: string;
+  range: string;
+  ritual: boolean;
+  school: {
+    name: string;
+    index: string;
+  };
+}
+
+export interface LowDetailsSpell {
+  index: string;
+  casting_time: string;
+  classes: {
+    name:
+      | "Bard"
+      | "Cleric"
+      | "Druid"
+      | "Paladin"
+      | "Ranger"
+      | "Sorcerer"
+      | "Warlock"
+      | "Wizard";
+  }[];
+  components: ComponentType[];
+  concentration: boolean;
+  desc: string[];
+  duration: string;
+  level: number;
   name: string;
   range: string;
   ritual: boolean;

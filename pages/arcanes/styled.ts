@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface MagicSchoolSymbolProps {
+  url: string;
+}
+
 export const ArcanesWrapper = styled.div`
   width: 100vw;
   min-height: 100vh;
@@ -45,4 +49,62 @@ export const SingleSpellCardWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
+`;
+
+export const TitleWrapper = styled.div`
+  color: #23392e;
+  font-size: 2.5rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    color: #528173;
+    font-size: 1.25rem;
+    margin-top: 0.2rem;
+  }
+`;
+
+export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: #23392e;
+  font-size: 1.25rem;
+
+  span {
+    color: #528173;
+  }
+`;
+
+export const DetailsColumnsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+`;
+
+export const ColumnWithTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.25rem;
+  color: #23392e;
+
+  span {
+    color: #528173;
+  }
+`;
+
+export const MagicSchoolSymbol = styled.div<MagicSchoolSymbolProps>`
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(${(props) => props.url}) no-repeat;
+  background-size: cover;
 `;
