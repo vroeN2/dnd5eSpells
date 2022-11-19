@@ -10,7 +10,7 @@ export const ArcanesWrapper = styled.div`
   height: 100%;
   position: relative;
   display: flex;
-  background: url("assets/bg_1.png") no-repeat center center fixed;
+  background: url("/assets/bg_1.png") no-repeat center center fixed;
   background-size: cover;
 `;
 
@@ -18,6 +18,8 @@ export const ListWrapper = styled.div`
   position: absolute;
   top: 19vh;
   bottom: 0;
+  left: 0;
+  right: 0;
   overflow-y: scroll;
   display: flex;
   align-items: center;
@@ -34,8 +36,9 @@ export const SpellDetailsWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("assets/bg_2.png") no-repeat center center fixed;
+  background: url("/assets/bg_2.png") no-repeat center center fixed;
   background-size: cover;
+  z-index: 1;
 `;
 
 export const SingleSpellCardWrapper = styled.div`
@@ -60,6 +63,7 @@ export const TitleWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 
   span {
     color: #528173;
@@ -73,6 +77,7 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   color: #23392e;
   font-size: 1.25rem;
+  z-index: 3;
 
   span {
     color: #528173;
@@ -97,14 +102,23 @@ export const ColumnWithTitle = styled.div`
 `;
 
 export const MagicSchoolSymbol = styled.div<MagicSchoolSymbolProps>`
-  position: relative;
+  height: 90%;
+  width: 70%;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0.3;
+  opacity: 0.05;
   display: flex;
   justify-content: center;
   align-items: center;
   background: url(${(props) => props.url}) no-repeat;
-  background-size: cover;
+  background-size: contain;
+  z-index: 2;
+`;
+
+export const LoadingComponent = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
 `;

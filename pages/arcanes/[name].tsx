@@ -39,7 +39,7 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
 
         <ContentWrapper>
           <MagicSchoolSymbol
-            url={`/assets/schools/${school.name.toLocaleLowerCase()}`}
+            url={`/assets/schools/${school.name.toLocaleLowerCase()}.png`}
           />
 
           <DetailsColumnsWrapper>
@@ -59,16 +59,13 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
           <span>ASDF TEST</span>
 
           <ColumnWithTitle>
-            TEST
-            <span>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-              modi, maiores tempore possimus vitae a, quibusdam sapiente
-              delectus voluptatem quae laudantium quod iste doloribus soluta,
-              odit voluptatibus fuga quas! Atque corrupti nisi laboriosam
-              recusandae corporis obcaecati minus vitae tempora placeat nostrum
-              quas iste delectus voluptate debitis pariatur, harum, blanditiis
-              eaque.
-            </span>
+            <span>TEST</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+            modi, maiores tempore possimus vitae a, quibusdam sapiente delectus
+            voluptatem quae laudantium quod iste doloribus soluta, odit
+            voluptatibus fuga quas! Atque corrupti nisi laboriosam recusandae
+            corporis obcaecati minus vitae tempora placeat nostrum quas iste
+            delectus voluptate debitis pariatur, harum, blanditiis eaque.
           </ColumnWithTitle>
 
           <ClassIcons classes={classes} />
