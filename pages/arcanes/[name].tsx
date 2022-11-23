@@ -5,6 +5,7 @@ import { Spell } from "../../interfaces/Spell";
 import {
   ColumnWithTitle,
   ContentWrapper,
+  DetailsColumn,
   DetailsColumnsWrapper,
   MagicSchoolSymbol,
   SingleSpellCardWrapper,
@@ -13,18 +14,71 @@ import {
 } from "./styled";
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 import ClassIcons from "../../components/ClassIcons";
+import DetailsDisplay from "../../components/DetailsDisplay";
+import { imperialToMetric } from "../../utils/convertImperialToMetric";
+import { Tooltip } from "antd";
 
 type SingleSpellProps = {
   spell: Spell;
 };
 
 const SingleSpell = ({ spell }: SingleSpellProps) => {
-  const { name, school, level, concentration, ritual, classes } = spell;
+  const {
+    name,
+    school,
+    level,
+    concentration,
+    ritual,
+    classes,
+    casting_time,
+    range,
+    components,
+    duration,
+    material,
+    damage,
+    attack_type,
+    area_of_effect,
+    desc,
+    higher_level,
+  } = spell;
 
   const { isFallback } = useRouter();
   if (isFallback) {
     return <Loading />;
   }
+
+  const { damage_at_character_level, damage_at_slot_level, damage_type } =
+    damage ?? {
+      damage_at_character_level: null,
+      damage_at_slot_level: null,
+      damage_type: null,
+    };
+
+  console.log({ damage_at_character_level });
+
+  const createTooltip = (
+    dmgArray:
+      | {
+          damage: string;
+          level: number;
+        }[],
+    title: string
+  ) => {
+    // return (
+    //   <ColumnWithTitle>
+    //     <span>{title}</span>
+    //     {dmgArray.map((sub) => {
+    //       return (
+    //         <>
+    //           <span>{sub.level}:</span>
+    //           {sub.damage}
+    //         </>
+    //       );
+    //     })}
+    //   </ColumnWithTitle>
+    // );
+    return <p>TEST</p>;
+  };
 
   return (
     <SpellDetailsWrapper>
@@ -42,8 +96,62 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
             url={`/assets/schools/${school.name.toLocaleLowerCase()}.png`}
           />
 
-          <DetailsColumnsWrapper>
-            <div>SZCZEGÓŁY</div>
+          <DetailsColumnsWrapper style={{ marginTop: "2rem" }}>
+            <DetailsColumn>
+              <DetailsDisplay title="Casting time:" details={casting_time} />
+
+              <DetailsDisplay title="Range:" details={range} />
+
+              <DetailsDisplay
+                title="Components:"
+                details={components.join(" ")}
+              />
+
+              <DetailsDisplay title="Duration:" details={duration} />
+
+              <DetailsDisplay title="Material:" details={material ?? "-"} />
+
+              <DetailsDisplay
+                title="Attack type:"
+                details={attack_type ? attack_type.toLocaleLowerCase() : "-"}
+              />
+
+              <DetailsDisplay
+                title="Area of effect:"
+                details={
+                  area_of_effect
+                    ? `${area_of_effect.type.toLocaleLowerCase()}, ${
+                        area_of_effect.size
+                      } feet (${imperialToMetric(area_of_effect.size)}m)`
+                    : "-"
+                }
+              />
+
+              <DetailsDisplay
+                title="Damage type:"
+                details={damage_type !== null ? damage_type.name : "-"}
+              />
+
+              {damage_at_character_level && (
+                <Tooltip
+                  placement="bottomLeft"
+                  // title={createTooltip(
+                  //   damage_at_character_level,
+                  //   "Damage at character level:"
+                  // )}
+                  title="dupa"
+                >
+                  <DetailsDisplay
+                    title="Damage:"
+                    details={damage_at_character_level[0].damage}
+                  />
+                </Tooltip>
+              )}
+
+              {!damage_at_character_level && (
+                <DetailsDisplay title="Damage:" details={"-"} />
+              )}
+            </DetailsColumn>
 
             <ColumnWithTitle style={{ alignItems: "flex-end" }}>
               <span style={{ color: concentration ? "#528173" : "#EF767A" }}>
@@ -56,16 +164,13 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
             </ColumnWithTitle>
           </DetailsColumnsWrapper>
 
-          <span>ASDF TEST</span>
+          <ColumnWithTitle style={{ marginTop: "2rem" }}>
+            {desc}
+          </ColumnWithTitle>
 
-          <ColumnWithTitle>
-            <span>TEST</span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            modi, maiores tempore possimus vitae a, quibusdam sapiente delectus
-            voluptatem quae laudantium quod iste doloribus soluta, odit
-            voluptatibus fuga quas! Atque corrupti nisi laboriosam recusandae
-            corporis obcaecati minus vitae tempora placeat nostrum quas iste
-            delectus voluptate debitis pariatur, harum, blanditiis eaque.
+          <ColumnWithTitle style={{ marginTop: "2rem" }}>
+            <span>Higher level</span>
+            {higher_level ?? "No effect"}
           </ColumnWithTitle>
 
           <ClassIcons classes={classes} />
