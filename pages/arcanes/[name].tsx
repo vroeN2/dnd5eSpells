@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import Loading from "../../components/Loading";
-import { Spell } from "../../interfaces/Spell";
+import { DamageType, Spell } from "../../interfaces/Spell";
 import {
   ColumnWithTitle,
   ContentWrapper,
@@ -17,6 +17,8 @@ import ClassIcons from "../../components/ClassIcons";
 import DetailsDisplay from "../../components/DetailsDisplay";
 import { imperialToMetric } from "../../utils/convertImperialToMetric";
 import { Tooltip } from "antd";
+import { TooltipInterface } from "../../components/DetailsDisplay/DetailsDisplay";
+import Head from "next/head";
 
 type SingleSpellProps = {
   spell: Spell;
@@ -55,33 +57,46 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
     };
 
   console.log({ damage_at_character_level });
+  console.log({ damage_at_slot_level });
 
-  const createTooltip = (
-    dmgArray:
-      | {
-          damage: string;
-          level: number;
-        }[],
-    title: string
-  ) => {
-    // return (
-    //   <ColumnWithTitle>
-    //     <span>{title}</span>
-    //     {dmgArray.map((sub) => {
-    //       return (
-    //         <>
-    //           <span>{sub.level}:</span>
-    //           {sub.damage}
-    //         </>
-    //       );
-    //     })}
-    //   </ColumnWithTitle>
-    // );
-    return <p>TEST</p>;
+  const checkDamageDetails = (damage: DamageType): string => {
+    if (damage) {
+      const { damage_at_character_level, damage_at_slot_level } = damage;
+      return damage_at_character_level
+        ? damage_at_character_level[0].damage
+        : damage_at_slot_level
+        ? damage_at_slot_level[0].damage
+        : "-";
+    } else {
+      return "-";
+    }
+  };
+
+  const checkDamageTooltipType = (damage: DamageType): TooltipInterface => {
+    if (damage) {
+      const { damage_at_character_level, damage_at_slot_level } = damage;
+      return {
+        content: damage_at_character_level ?? damage_at_slot_level,
+        title: damage_at_character_level
+          ? "Damage at character level:"
+          : "Damage at slot level:",
+      };
+    } else {
+      return {
+        content: null,
+        title: "",
+      };
+    }
   };
 
   return (
     <SpellDetailsWrapper>
+      <Head>
+        <title>{name}</title>
+        <meta name="description" content={`Detailed info about ${name}`} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <SingleSpellCardWrapper>
         <TitleWrapper>
           {name}
@@ -132,34 +147,20 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
                 details={damage_type !== null ? damage_type.name : "-"}
               />
 
-              {damage_at_character_level && (
-                <Tooltip
-                  placement="bottomLeft"
-                  // title={createTooltip(
-                  //   damage_at_character_level,
-                  //   "Damage at character level:"
-                  // )}
-                  title="dupa"
-                >
-                  <DetailsDisplay
-                    title="Damage:"
-                    details={damage_at_character_level[0].damage}
-                  />
-                </Tooltip>
-              )}
-
-              {!damage_at_character_level && (
-                <DetailsDisplay title="Damage:" details={"-"} />
-              )}
+              <DetailsDisplay
+                title="Damage:"
+                details={checkDamageDetails(damage)}
+                tooltip={checkDamageTooltipType(damage)}
+              />
             </DetailsColumn>
 
             <ColumnWithTitle style={{ alignItems: "flex-end" }}>
               <span style={{ color: concentration ? "#528173" : "#EF767A" }}>
-                Concentration
+                {concentration ? "✔️" : "❌"} Concentration
               </span>
 
               <span style={{ color: ritual ? "#528173" : "#EF767A" }}>
-                Ritual
+                {ritual ? "✔️" : "❌"} Ritual
               </span>
             </ColumnWithTitle>
           </DetailsColumnsWrapper>
@@ -200,7 +201,7 @@ export const getStaticPaths = async () => {
 
   const { spells } = data;
   const paths = spells.map(({ name }: { name: string }) => ({
-    params: { name: name },
+    params: { name: name.replace(/[\W_]+/g, " ") },
   }));
 
   return {
@@ -276,7 +277,7 @@ export const getStaticProps = async ({
   });
 
   const requiredSpellDetails = data.spells.filter((singleSpell: Spell) => {
-    return singleSpell.name === params.name;
+    return singleSpell.name.replace(/[\W_]+/g, " ") === params.name;
   });
 
   return {

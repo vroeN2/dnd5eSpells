@@ -40,7 +40,7 @@ const Spellcard = ({ spell }: SpellCardProps) => {
         <GiSpellBook size="50px" onClick={handleSaveSpell} />
       </SaveIconWrapper>
 
-      <Link href={`/arcanes/${name}`}>
+      <Link href={`/arcanes/${name.replace(/[\W_]+/g, " ")}`}>
         <SpellName>{name}</SpellName>
         <SpellDetails style={{ marginBottom: "1.5rem" }}>
           {school.name.toLocaleLowerCase()}, level {level}

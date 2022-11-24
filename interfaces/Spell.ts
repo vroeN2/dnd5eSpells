@@ -1,5 +1,30 @@
 type ComponentType = "V" | "S" | "M";
 
+export type DamageType = {
+  damage_at_character_level:
+    | {
+        damage: string;
+        level: number;
+      }[]
+    | null;
+  damage_at_slot_level:
+    | {
+        damage: string;
+        level: number;
+      }[]
+    | null;
+  damage_type: {
+    name: string;
+  };
+} | null;
+
+export type DC = {
+  type: {
+    name: string;
+  };
+  success: string;
+} | null;
+
 export interface Spell {
   index: string;
   area_of_effect: {
@@ -21,29 +46,8 @@ export interface Spell {
   }[];
   components: ComponentType[];
   concentration: boolean;
-  damage: {
-    damage_at_character_level:
-      | {
-          damage: string;
-          level: number;
-        }[]
-      | null;
-    damage_at_slot_level:
-      | {
-          damage: string;
-          level: number;
-        }[]
-      | null;
-    damage_type: {
-      name: string;
-    };
-  } | null;
-  dc: {
-    type: {
-      name: string;
-    };
-    success: string;
-  } | null;
+  damage: DamageType;
+  dc: DC;
   desc: string[];
   duration: string;
   heal_at_slot_level:

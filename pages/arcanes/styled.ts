@@ -13,7 +13,6 @@ export const ArcanesWrapper = styled(FlexDiv)`
   min-height: 100vh;
   height: 100%;
   position: relative;
-
   background: url("/assets/bg_1.png") no-repeat center center fixed;
   background-size: cover;
 `;
@@ -25,7 +24,6 @@ export const ListWrapper = styled(FlexDiv)`
   left: 0;
   right: 0;
   overflow-y: scroll;
-
   align-items: center;
   padding: 0 10vw;
   justify-content: center;
@@ -110,7 +108,7 @@ export const ColumnWithTitle = styled(FlexDiv)`
 
 export const MagicSchoolSymbol = styled(FlexDiv)<MagicSchoolSymbolProps>`
   height: 90%;
-  width: 70%;
+  width: 65%;
   position: absolute;
   top: 50%;
   left: 50%;
