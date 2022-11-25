@@ -49,6 +49,9 @@ export const CreateSelectList = (
     )
     .filter((spell) =>
       filters.ritual ? spell.ritual === filters.ritual : spell
+    )
+    .filter((spell) =>
+      filters.isBonus ? spell.casting_time.includes("bonus") : spell
     );
 };
 

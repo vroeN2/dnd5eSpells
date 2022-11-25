@@ -16,7 +16,6 @@ import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 import ClassIcons from "../../components/ClassIcons";
 import DetailsDisplay from "../../components/DetailsDisplay";
 import { imperialToMetric } from "../../utils/convertImperialToMetric";
-import { Tooltip } from "antd";
 import { TooltipInterface } from "../../components/DetailsDisplay/DetailsDisplay";
 import Head from "next/head";
 
@@ -42,22 +41,13 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
     area_of_effect,
     desc,
     higher_level,
+    heal_at_slot_level,
   } = spell;
 
   const { isFallback } = useRouter();
   if (isFallback) {
     return <Loading />;
   }
-
-  const { damage_at_character_level, damage_at_slot_level, damage_type } =
-    damage ?? {
-      damage_at_character_level: null,
-      damage_at_slot_level: null,
-      damage_type: null,
-    };
-
-  console.log({ damage_at_character_level });
-  console.log({ damage_at_slot_level });
 
   const checkDamageDetails = (damage: DamageType): string => {
     if (damage) {
@@ -144,14 +134,16 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
 
               <DetailsDisplay
                 title="Damage type:"
-                details={damage_type !== null ? damage_type.name : "-"}
+                details={damage !== null ? damage.damage_type.name : ""}
               />
 
-              <DetailsDisplay
-                title="Damage:"
-                details={checkDamageDetails(damage)}
-                tooltip={checkDamageTooltipType(damage)}
-              />
+              {damage && (
+                <DetailsDisplay
+                  title="Damage:"
+                  details={checkDamageDetails(damage)}
+                  tooltip={checkDamageTooltipType(damage)}
+                />
+              )}
             </DetailsColumn>
 
             <ColumnWithTitle style={{ alignItems: "flex-end" }}>

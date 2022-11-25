@@ -35,7 +35,7 @@ export const SearchBarInput = styled(Input)`
 `;
 
 export const FilterSelect = styled(Select)`
-  width: 15%;
+  width: 10%;
 `;
 
 export const FilterCheckbox = styled(Checkbox)`

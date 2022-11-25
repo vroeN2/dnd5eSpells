@@ -24,6 +24,7 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
     level: null,
     concentration: null,
     ritual: null,
+    isBonus: null,
   };
   const [filters, setFilters] = useState<FilterValues>(filtersInitialValues);
 
@@ -76,6 +77,10 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
     setFilters({ ...filters, ritual: isRitual });
   };
 
+  const handleIsBonusFilter = (isBonus: boolean) => {
+    setFilters({ ...filters, isBonus: isBonus });
+  };
+
   useEffect(() => {
     setFilteredSpells(CreateSelectList(spells, filters));
   }, [filters, setFilteredSpells, spells]);
@@ -103,6 +108,7 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
         />
 
         <FilterSelect
+          style={{ width: "15%" }}
           placeholder="School of magic"
           allowClear
           size="large"
@@ -140,6 +146,13 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
           onChange={(e) => handleRitualFilter(e.target.checked)}
         >
           Ritual
+        </FilterCheckbox>
+
+        <FilterCheckbox
+          checked={filters.isBonus ?? false}
+          onChange={(e) => handleIsBonusFilter(e.target.checked)}
+        >
+          Bonus Action
         </FilterCheckbox>
 
         <ResetFiltersButton

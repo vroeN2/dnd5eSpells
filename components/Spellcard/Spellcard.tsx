@@ -8,6 +8,7 @@ import {
 import { GiSpellBook } from "react-icons/gi";
 import { LowDetailsSpell } from "../../interfaces/Spell";
 import Link from "next/link";
+import { Tooltip } from "antd";
 
 interface SpellCardProps {
   spell: LowDetailsSpell;
@@ -28,6 +29,10 @@ const Spellcard = ({ spell }: SpellCardProps) => {
     console.log("saved!", spell);
   };
 
+  const setTitle = (title: string) => {
+    return title.length > 17 ? title.slice(0, 16) + "..." : title;
+  };
+
   const setDescription = (description: string) => {
     return description.length > 125
       ? description.slice(0, 124) + " (...)"
@@ -41,7 +46,9 @@ const Spellcard = ({ spell }: SpellCardProps) => {
       </SaveIconWrapper>
 
       <Link href={`/arcanes/${name.replace(/[\W_]+/g, " ")}`}>
-        <SpellName>{name}</SpellName>
+        <Tooltip title={name}>
+          <SpellName>{setTitle(name)}</SpellName>
+        </Tooltip>
         <SpellDetails style={{ marginBottom: "1.5rem" }}>
           {school.name.toLocaleLowerCase()}, level {level}
         </SpellDetails>

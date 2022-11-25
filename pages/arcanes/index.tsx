@@ -14,6 +14,7 @@ export interface FilterValues {
   level: number | null;
   concentration: boolean | null;
   ritual: boolean | null;
+  isBonus: boolean | null;
 }
 
 const Arcanes = () => {
