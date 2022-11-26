@@ -1,4 +1,12 @@
 type ComponentType = "V" | "S" | "M";
+const SaveRolls = {
+  STR: "strength",
+  DEX: "dexterity",
+  CON: "constitution",
+  INT: "intelligence",
+  WIS: "wisdom",
+  CHA: "charisma",
+};
 
 export interface DamageDetails {
   damage: string;
@@ -19,7 +27,7 @@ export type DamageType = {
 
 export type DC = {
   type: {
-    name: string;
+    name: keyof typeof SaveRolls;
   };
   success: string;
 } | null;

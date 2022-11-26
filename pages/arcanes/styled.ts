@@ -44,8 +44,7 @@ export const SpellDetailsWrapper = styled(FlexDiv)`
 `;
 
 export const SingleSpellCardWrapper = styled(FlexDiv)`
-  max-height: 80vh;
-  min-height: 75vh;
+  height: 70vh;
   width: 56vw;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid #023020;
@@ -85,7 +84,7 @@ export const ContentWrapper = styled(FlexDiv)`
   color: #23392e;
   font-size: 1.25rem;
   z-index: 3;
-  height: 90%; // za mało dla dużych, za dużo dla małych :/
+  height: fit-content;
 
   span {
     color: #528173;
@@ -113,19 +112,17 @@ export const ColumnWithTitle = styled(FlexDiv)`
 `;
 
 export const MagicSchoolSymbol = styled(FlexDiv)<MagicSchoolSymbolProps>`
-  height: 90%;
-  width: 65%;
+  height: 100%;
+  width: 80%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0.05;
   pointer-events: none;
-
+  display: flex;
   justify-content: center;
   align-items: center;
-  background: url(${(props) => props.url}) no-repeat;
-  background-size: contain;
   z-index: 2;
 `;
 

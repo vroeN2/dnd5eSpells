@@ -20,6 +20,7 @@ import DamageDetailsDisplay, {
   TooltipInterface,
 } from "../../components/DamageDetailsDisplay/DamageDetailsDisplay";
 import Head from "next/head";
+import { Image } from "antd";
 
 type SingleSpellProps = {
   spell: Spell;
@@ -44,12 +45,22 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
     desc,
     higher_level,
     heal_at_slot_level,
+    dc,
   } = spell;
 
   const { isFallback } = useRouter();
   if (isFallback) {
     return <Loading />;
   }
+
+  const SaveRolls = {
+    STR: "strength",
+    DEX: "dexterity",
+    CON: "constitution",
+    INT: "intelligence",
+    WIS: "wisdom",
+    CHA: "charisma",
+  };
 
   const checkDamageDetails = (damage: DamageType): string => {
     if (damage) {
@@ -90,6 +101,17 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
       </Head>
 
       <SingleSpellCardWrapper>
+        <MagicSchoolSymbol
+          url={`/assets/schools/${school.name.toLocaleLowerCase()}.png`}
+        >
+          <Image
+            preview={false}
+            src={`/assets/schools/${school.name.toLocaleLowerCase()}.png`}
+            width="80%"
+            alt={`${school.name}`}
+          />
+        </MagicSchoolSymbol>
+
         <ContentWrapper>
           <TitleWrapper>
             {name}
@@ -98,10 +120,6 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
               {school.name.toLocaleLowerCase()}, level {level}
             </span>
           </TitleWrapper>
-
-          <MagicSchoolSymbol
-            url={`/assets/schools/${school.name.toLocaleLowerCase()}.png`}
-          />
 
           <DetailsColumnsWrapper style={{ marginTop: "2rem" }}>
             <DetailsColumn>
@@ -163,6 +181,13 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
                     content: heal_at_slot_level,
                     title: "Healing at spell level:",
                   }}
+                />
+              )}
+
+              {dc && (
+                <DamageDetailsDisplay
+                  title="DC:"
+                  details={`${SaveRolls[dc.type.name]}`}
                 />
               )}
             </DetailsColumn>
