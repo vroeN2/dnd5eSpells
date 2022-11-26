@@ -9,7 +9,7 @@ import {
   ResetFiltersButton,
 } from "./styled";
 import { CreateOptionsObject, CreateSelectList } from "../../utils/createArray";
-import { LowDetailsSpell, Spell } from "../../interfaces/Spell";
+import { LowDetailsSpell } from "../../interfaces/Spell";
 
 interface SearchbarInterface {
   spells: LowDetailsSpell[];
@@ -57,7 +57,7 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
     setFilters({ ...filters, textContent: searchValue });
   };
 
-  const handleClassFilter = (selectedClasses: string) => {
+  const handleClassFilter = (selectedClasses: string | null) => {
     setFilters({ ...filters, class: selectedClasses });
   };
 
@@ -102,7 +102,7 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
           value={filters.class}
           onChange={(selectedClass) =>
             handleClassFilter(
-              typeof selectedClass !== "string" ? "" : selectedClass
+              typeof selectedClass !== "string" ? null : selectedClass
             )
           }
         />

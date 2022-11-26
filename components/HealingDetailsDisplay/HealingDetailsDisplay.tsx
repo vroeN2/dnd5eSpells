@@ -10,11 +10,11 @@ interface Details {
 }
 
 export interface TooltipInterface {
-  content: { damage: string; level: number }[] | null;
+  content: { healing: string; level: number }[] | null;
   title: string;
 }
 
-const DetailsDisplay = ({ title, details, tooltip }: Details) => {
+const HealingDetailsDisplay = ({ title, details, tooltip }: Details) => {
   const createTooltip = (tooltip: TooltipInterface) => {
     const { title, content } = tooltip;
     if (content) {
@@ -24,7 +24,7 @@ const DetailsDisplay = ({ title, details, tooltip }: Details) => {
           {content.map((sub) => {
             return (
               <p key={sub.level} style={{ marginBottom: 0 }}>
-                <span>{sub.level}:</span> {sub.damage}
+                <span>{sub.level}:</span> {sub.healing}
               </p>
             );
           })}
@@ -41,14 +41,8 @@ const DetailsDisplay = ({ title, details, tooltip }: Details) => {
           title={createTooltip(tooltip)}
           color={"#fff"}
         >
-          <RowWithTitle
-            style={
-              tooltip.content && title === "Damage:"
-                ? { textDecoration: "underline" }
-                : { textDecoration: "none" }
-            }
-          >
-            <span>{title}</span>
+          <RowWithTitle>
+            <span style={{ textDecoration: "underline" }}>{title}</span>
             {details}
           </RowWithTitle>
         </Tooltip>
@@ -64,4 +58,4 @@ const DetailsDisplay = ({ title, details, tooltip }: Details) => {
   );
 };
 
-export default DetailsDisplay;
+export default HealingDetailsDisplay;

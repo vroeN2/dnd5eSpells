@@ -14,9 +14,11 @@ import {
 } from "./styled";
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 import ClassIcons from "../../components/ClassIcons";
-import DetailsDisplay from "../../components/DetailsDisplay";
+import HealingDetailsDisplay from "../../components/HealingDetailsDisplay";
 import { imperialToMetric } from "../../utils/convertImperialToMetric";
-import { TooltipInterface } from "../../components/DetailsDisplay/DetailsDisplay";
+import DamageDetailsDisplay, {
+  TooltipInterface,
+} from "../../components/DamageDetailsDisplay/DamageDetailsDisplay";
 import Head from "next/head";
 
 type SingleSpellProps = {
@@ -69,7 +71,7 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
         content: damage_at_character_level ?? damage_at_slot_level,
         title: damage_at_character_level
           ? "Damage at character level:"
-          : "Damage at slot level:",
+          : "Damage at spell level:",
       };
     } else {
       return {
@@ -88,40 +90,46 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
       </Head>
 
       <SingleSpellCardWrapper>
-        <TitleWrapper>
-          {name}
-
-          <span>
-            {school.name.toLocaleLowerCase()}, level {level}
-          </span>
-        </TitleWrapper>
-
         <ContentWrapper>
+          <TitleWrapper>
+            {name}
+
+            <span>
+              {school.name.toLocaleLowerCase()}, level {level}
+            </span>
+          </TitleWrapper>
+
           <MagicSchoolSymbol
             url={`/assets/schools/${school.name.toLocaleLowerCase()}.png`}
           />
 
           <DetailsColumnsWrapper style={{ marginTop: "2rem" }}>
             <DetailsColumn>
-              <DetailsDisplay title="Casting time:" details={casting_time} />
+              <DamageDetailsDisplay
+                title="Casting time:"
+                details={casting_time}
+              />
 
-              <DetailsDisplay title="Range:" details={range} />
+              <DamageDetailsDisplay title="Range:" details={range} />
 
-              <DetailsDisplay
+              <DamageDetailsDisplay
                 title="Components:"
                 details={components.join(" ")}
               />
 
-              <DetailsDisplay title="Duration:" details={duration} />
+              <DamageDetailsDisplay title="Duration:" details={duration} />
 
-              <DetailsDisplay title="Material:" details={material ?? "-"} />
+              <DamageDetailsDisplay
+                title="Material:"
+                details={material ?? "-"}
+              />
 
-              <DetailsDisplay
+              <DamageDetailsDisplay
                 title="Attack type:"
                 details={attack_type ? attack_type.toLocaleLowerCase() : "-"}
               />
 
-              <DetailsDisplay
+              <DamageDetailsDisplay
                 title="Area of effect:"
                 details={
                   area_of_effect
@@ -132,22 +140,40 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
                 }
               />
 
-              <DetailsDisplay
-                title="Damage type:"
-                details={damage !== null ? damage.damage_type.name : ""}
-              />
-
               {damage && (
-                <DetailsDisplay
-                  title="Damage:"
-                  details={checkDamageDetails(damage)}
-                  tooltip={checkDamageTooltipType(damage)}
+                <>
+                  <DamageDetailsDisplay
+                    title="Damage type:"
+                    details={damage !== null ? damage.damage_type.name : "-"}
+                  />
+
+                  <DamageDetailsDisplay
+                    title="Damage:"
+                    details={checkDamageDetails(damage)}
+                    tooltip={checkDamageTooltipType(damage)}
+                  />
+                </>
+              )}
+
+              {heal_at_slot_level && (
+                <HealingDetailsDisplay
+                  title="Healing:"
+                  details={heal_at_slot_level[0].healing ?? "-"}
+                  tooltip={{
+                    content: heal_at_slot_level,
+                    title: "Healing at spell level:",
+                  }}
                 />
               )}
             </DetailsColumn>
 
             <ColumnWithTitle style={{ alignItems: "flex-end" }}>
-              <span style={{ color: concentration ? "#528173" : "#EF767A" }}>
+              <span
+                style={{
+                  color: concentration ? "#528173" : "#EF767A",
+                  width: "12rem",
+                }}
+              >
                 {concentration ? "✔️" : "❌"} Concentration
               </span>
 

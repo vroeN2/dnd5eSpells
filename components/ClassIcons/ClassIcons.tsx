@@ -1,5 +1,6 @@
+import { Tooltip } from "antd";
 import React from "react";
-import { Icon } from "./styled";
+import { Icon, IconWrapper, StyledTooltipTitle } from "./styled";
 
 const classIcons = {
   Bard: "/assets/classes/bard.png",
@@ -20,16 +21,23 @@ interface ClassIconsProps {
 
 const ClassIcons = ({ classes }: ClassIconsProps) => {
   return (
-    <>
+    <IconWrapper>
       {classes.map((singleClass) => {
         return (
-          <Icon
-            url={classIcons[singleClass.name]}
-            key={classIcons[singleClass.name]}
-          />
+          <Tooltip
+            placement="bottom"
+            color={"#fff"}
+            title={<StyledTooltipTitle>{singleClass.name}</StyledTooltipTitle>}
+            key={singleClass.name}
+          >
+            <Icon
+              url={classIcons[singleClass.name]}
+              key={classIcons[singleClass.name]}
+            />
+          </Tooltip>
         );
       })}
-    </>
+    </IconWrapper>
   );
 };
 

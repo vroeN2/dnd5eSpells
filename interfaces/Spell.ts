@@ -1,18 +1,17 @@
 type ComponentType = "V" | "S" | "M";
 
+export interface DamageDetails {
+  damage: string;
+  level: number;
+}
+export interface HealingDetails {
+  healing: string;
+  level: number;
+}
+
 export type DamageType = {
-  damage_at_character_level:
-    | {
-        damage: string;
-        level: number;
-      }[]
-    | null;
-  damage_at_slot_level:
-    | {
-        damage: string;
-        level: number;
-      }[]
-    | null;
+  damage_at_character_level: DamageDetails[] | null;
+  damage_at_slot_level: DamageDetails[] | null;
   damage_type: {
     name: string;
   };
@@ -50,12 +49,7 @@ export interface Spell {
   dc: DC;
   desc: string[];
   duration: string;
-  heal_at_slot_level:
-    | {
-        healing: string;
-        level: number;
-      }[]
-    | null;
+  heal_at_slot_level: HealingDetails[] | null;
   higher_level: string[] | null;
   level: number;
   material: string | null;
