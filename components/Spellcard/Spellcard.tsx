@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   SaveIconWrapper,
@@ -7,16 +6,31 @@ import {
   SpellName,
 } from "./styled";
 import { GiSpellBook } from "react-icons/gi";
-import { Spell } from "../../interfaces/Spell";
+import { LowDetailsSpell } from "../../interfaces/Spell";
 import Link from "next/link";
+import { Tooltip } from "antd";
 
 interface SpellCardProps {
-  spell: Spell;
+  spell: LowDetailsSpell;
 }
 
 const Spellcard = ({ spell }: SpellCardProps) => {
+  const {
+    name,
+    level,
+    casting_time,
+    range,
+    components,
+    duration,
+    desc,
+    school,
+  } = spell;
   const handleSaveSpell = () => {
     console.log("saved!", spell);
+  };
+
+  const setTitle = (title: string) => {
+    return title.length > 17 ? title.slice(0, 16) + "..." : title;
   };
 
   const setDescription = (description: string) => {
@@ -31,33 +45,35 @@ const Spellcard = ({ spell }: SpellCardProps) => {
         <GiSpellBook size="50px" onClick={handleSaveSpell} />
       </SaveIconWrapper>
 
-      <Link href={`/arcanes/${spell.name}`}>
-        <SpellName>{spell.name}</SpellName>
+      <Link href={`/arcanes/${name.replace(/[\W_]+/g, " ")}`}>
+        <Tooltip title={name}>
+          <SpellName>{setTitle(name)}</SpellName>
+        </Tooltip>
         <SpellDetails style={{ marginBottom: "1.5rem" }}>
-          {spell.school.name.toLocaleLowerCase()}, level {spell.level}
+          {school.name.toLocaleLowerCase()}, level {level}
         </SpellDetails>
         {spell && (
           <>
             <SpellDetails>
               <span>Casting time:</span>
-              {spell.casting_time}
+              {casting_time}
             </SpellDetails>
 
             <SpellDetails>
               <span>Range:</span>
-              {spell.range}
+              {range}
             </SpellDetails>
 
             <SpellDetails>
               <span>Components:</span>
-              {spell.components.map((component) => component + " ")}
+              {components.map((component) => component + " ")}
             </SpellDetails>
 
             <SpellDetails>
               <span>Duration:</span>
-              {spell.duration}
+              {duration}
             </SpellDetails>
-            <SpellDetails>{setDescription(spell.desc[0])}</SpellDetails>
+            <SpellDetails>{setDescription(desc[0])}</SpellDetails>
           </>
         )}
       </Link>

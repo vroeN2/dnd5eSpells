@@ -9,11 +9,11 @@ import {
   ResetFiltersButton,
 } from "./styled";
 import { CreateOptionsObject, CreateSelectList } from "../../utils/createArray";
-import { Spell } from "../../interfaces/Spell";
+import { LowDetailsSpell } from "../../interfaces/Spell";
 
 interface SearchbarInterface {
-  spells: Spell[];
-  setFilteredSpells: Dispatch<SetStateAction<Spell[]>>;
+  spells: LowDetailsSpell[];
+  setFilteredSpells: Dispatch<SetStateAction<LowDetailsSpell[]>>;
 }
 
 const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
@@ -24,6 +24,7 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
     level: null,
     concentration: null,
     ritual: null,
+    isBonus: null,
   };
   const [filters, setFilters] = useState<FilterValues>(filtersInitialValues);
 
@@ -56,7 +57,7 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
     setFilters({ ...filters, textContent: searchValue });
   };
 
-  const handleClassFilter = (selectedClasses: string) => {
+  const handleClassFilter = (selectedClasses: string | null) => {
     setFilters({ ...filters, class: selectedClasses });
   };
 
@@ -76,9 +77,13 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
     setFilters({ ...filters, ritual: isRitual });
   };
 
+  const handleIsBonusFilter = (isBonus: boolean) => {
+    setFilters({ ...filters, isBonus: isBonus });
+  };
+
   useEffect(() => {
     setFilteredSpells(CreateSelectList(spells, filters));
-  }, [filters, spells]);
+  }, [filters, setFilteredSpells, spells]);
   return (
     <SearchbarWrapper>
       <SearchbarContent>
@@ -97,12 +102,13 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
           value={filters.class}
           onChange={(selectedClass) =>
             handleClassFilter(
-              typeof selectedClass !== "string" ? "" : selectedClass
+              typeof selectedClass !== "string" ? null : selectedClass
             )
           }
         />
 
         <FilterSelect
+          style={{ width: "15%" }}
           placeholder="School of magic"
           allowClear
           size="large"
@@ -140,6 +146,13 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
           onChange={(e) => handleRitualFilter(e.target.checked)}
         >
           Ritual
+        </FilterCheckbox>
+
+        <FilterCheckbox
+          checked={filters.isBonus ?? false}
+          onChange={(e) => handleIsBonusFilter(e.target.checked)}
+        >
+          Bonus Action
         </FilterCheckbox>
 
         <ResetFiltersButton

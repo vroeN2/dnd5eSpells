@@ -10,7 +10,7 @@ export const ErrorPageLinks = styled(MenuItem)`
 `;
 
 export const HorizontalLine = styled.hr`
-  width: 100%;
+  width: 30%;
   height: 0.25rem;
   margin-top: -1.5rem;
   background: white;
