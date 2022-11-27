@@ -162,7 +162,11 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
                 <>
                   <DamageDetailsDisplay
                     title="Damage type:"
-                    details={damage !== null ? damage.damage_type.name : "-"}
+                    details={
+                      damage && damage.damage_type && damage.damage_type.name
+                        ? damage.damage_type.name
+                        : "-"
+                    }
                   />
 
                   <DamageDetailsDisplay
