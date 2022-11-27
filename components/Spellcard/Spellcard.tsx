@@ -46,7 +46,7 @@ const Spellcard = ({ spell }: SpellCardProps) => {
       </SaveIconWrapper>
 
       <Link href={`/arcanes/${name.replace(/[\W_]+/g, " ")}`}>
-        <Tooltip title={name}>
+        <Tooltip placement="topLeft" title={name}>
           <SpellName>{setTitle(name)}</SpellName>
         </Tooltip>
         <SpellDetails style={{ marginBottom: "1.5rem" }}>

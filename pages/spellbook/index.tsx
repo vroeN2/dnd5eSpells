@@ -1,10 +1,11 @@
 import React from "react";
 import Head from "next/head";
-import { BackgroundWrapper } from "../../components/spellbook/styled";
+import {
+  BackgroundWrapper,
+  MainSpellbookWrapper,
+} from "../../components/spellbook/styled";
 
-type Props = {};
-
-const Spellbook = (props: Props) => {
+const Spellbook = () => {
   return (
     <BackgroundWrapper>
       <Head>
@@ -12,7 +13,27 @@ const Spellbook = (props: Props) => {
         <meta name="description" content="List of spells in your spellbook" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <p>TEST</p>
+
+      <MainSpellbookWrapper>
+        <h2
+          style={{
+            color: "white",
+            fontSize: "6rem",
+            textShadow: "0px 0px 2px #1d1d1d",
+          }}
+        >
+          WORK IN PROGRESS
+        </h2>
+        <h4
+          style={{
+            color: "white",
+            fontSize: "4rem",
+            textShadow: "0px 0px 2px #1d1d1d",
+          }}
+        >
+          Spellbook feature will be added soon!
+        </h4>
+      </MainSpellbookWrapper>
     </BackgroundWrapper>
   );
 };
