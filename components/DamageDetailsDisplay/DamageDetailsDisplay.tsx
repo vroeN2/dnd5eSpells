@@ -1,6 +1,6 @@
 import { Tooltip } from "antd";
 import React from "react";
-import { ColumnWithTitle } from "../../pages/arcanes/styled";
+import { ColumnWithTitle } from "../arcanes/styled";
 import { RowWithTitle } from "./styled";
 
 interface Details {
