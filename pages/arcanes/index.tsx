@@ -1,6 +1,10 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import { ArcanesWrapper, ListWrapper, LoadingComponent } from "./styled";
+import {
+  ArcanesWrapper,
+  ListWrapper,
+  LoadingComponent,
+} from "../../components/arcanes/styled";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { LowDetailsSpell } from "../../interfaces/Spell";
 import Spellcard from "../../components/Spellcard";

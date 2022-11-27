@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { BackgroundWrapper } from "./styled";
+import { BackgroundWrapper } from "../../components/spellbook/styled";
 
 type Props = {};
 

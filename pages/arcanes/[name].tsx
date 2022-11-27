@@ -11,7 +11,7 @@ import {
   SingleSpellCardWrapper,
   SpellDetailsWrapper,
   TitleWrapper,
-} from "./styled";
+} from "../../components/arcanes/styled";
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 import ClassIcons from "../../components/ClassIcons";
 import HealingDetailsDisplay from "../../components/HealingDetailsDisplay";
