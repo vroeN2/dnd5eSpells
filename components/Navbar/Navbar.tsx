@@ -13,9 +13,9 @@ const Navbar = () => {
           <MenuItem style={{ marginRight: "2rem" }}>Arcanes List</MenuItem>
         </Link>
 
-        <Link style={{ textDecoration: "none" }} href="/spellbook">
+        {/* <Link style={{ textDecoration: "none" }} href="/spellbook">
           <MenuItem>Spellbook</MenuItem>
-        </Link>
+        </Link> */}
       </MenuWrapper>
     </NavbarWrapper>
   );
