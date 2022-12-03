@@ -84,6 +84,7 @@ const SearchBar = ({ spells, setFilteredSpells }: SearchbarInterface) => {
   useEffect(() => {
     setFilteredSpells(CreateSelectList(spells, filters));
   }, [filters, setFilteredSpells, spells]);
+
   return (
     <SearchbarWrapper>
       <SearchbarContent>
