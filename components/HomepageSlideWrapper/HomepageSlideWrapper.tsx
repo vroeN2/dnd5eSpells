@@ -28,7 +28,7 @@ const HomepageSlideWrapper: React.FC<Homepage> = ({
     <>
       <ParallaxLayer
         offset={wrapperOffset}
-        speed={0.5}
+        speed={0}
         onClick={() =>
           parallax.current.scrollTo(wrapperOffset === 2 ? 0 : wrapperOffset + 1)
         }

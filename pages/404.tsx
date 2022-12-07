@@ -9,6 +9,7 @@ const Background = styled.div`
   width: 100vw;
   min-height: 100vh;
   height: 100%;
+  clip-path: polygon(100% 0%, 100% 90%, 0% 100%, 0% 10%);
 `;
 
 const ErrorWrapper = styled.div`
@@ -39,31 +40,38 @@ const Title = styled.h1`
 
 const WrongPage = () => {
   return (
-    <Background>
-      <Head>
-        <title>Oh noes!</title>
-        <meta name="description" content={`There is nothing here!`} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div
+      style={{
+        background:
+          "linear-gradient(160deg, rgba(35,57,46,1) 0%, rgba(31,31,31,1) 100%)",
+      }}
+    >
+      <Background>
+        <Head>
+          <title>Oh noes!</title>
+          <meta name="description" content={`There is nothing here!`} />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <ErrorWrapper>
-        <Title>
-          <span>Dang.</span>
-          <br />
-          <HorizontalLine />
-          <br />
-          Looks like nothing is here
-          <br /> <br /> <br />
-          <Link href={"/"}>
-            <ErrorPageLinks>go back to homepage</ErrorPageLinks>
-          </Link>{" "}
-          or{" "}
-          <Link href={"/arcanes"}>
-            <ErrorPageLinks> go back to the list of arcanes</ErrorPageLinks>
-          </Link>
-        </Title>
-      </ErrorWrapper>
-    </Background>
+        <ErrorWrapper>
+          <Title>
+            <span>Dang.</span>
+            <br />
+            <HorizontalLine />
+            <br />
+            Looks like nothing is here
+            <br /> <br /> <br />
+            <Link href={"/"}>
+              <ErrorPageLinks>go back to homepage</ErrorPageLinks>
+            </Link>{" "}
+            or{" "}
+            <Link href={"/arcanes"}>
+              <ErrorPageLinks> go back to the list of arcanes</ErrorPageLinks>
+            </Link>
+          </Title>
+        </ErrorWrapper>
+      </Background>
+    </div>
   );
 };
 

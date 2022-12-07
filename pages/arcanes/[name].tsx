@@ -93,138 +93,145 @@ const SingleSpell = ({ spell }: SingleSpellProps) => {
   };
 
   return (
-    <SpellDetailsWrapper>
-      <Head>
-        <title>{name}</title>
-        <meta name="description" content={`Detailed info about ${name}`} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div
+      style={{
+        background:
+          "linear-gradient(160deg, rgba(35,57,46,1) 0%, rgba(31,31,31,1) 100%)",
+      }}
+    >
+      <SpellDetailsWrapper>
+        <Head>
+          <title>{name}</title>
+          <meta name="description" content={`Detailed info about ${name}`} />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <SingleSpellCardWrapper>
-        <MagicSchoolSymbol
-          url={`/assets/schools/${school.name.toLocaleLowerCase()}.png`}
-        >
-          <Image
-            preview={false}
-            src={`/assets/schools/${school.name.toLocaleLowerCase()}.png`}
-            width="80%"
-            alt={`${school.name}`}
-          />
-        </MagicSchoolSymbol>
+        <SingleSpellCardWrapper>
+          <MagicSchoolSymbol
+            url={`/assets/schools/${school.name.toLocaleLowerCase()}.png`}
+          >
+            <Image
+              preview={false}
+              src={`/assets/schools/${school.name.toLocaleLowerCase()}.png`}
+              width="80%"
+              alt={`${school.name}`}
+            />
+          </MagicSchoolSymbol>
 
-        <ContentWrapper>
-          <TitleWrapper>
-            {name}
+          <ContentWrapper>
+            <TitleWrapper>
+              {name}
 
-            <span>
-              {school.name.toLocaleLowerCase()}, level {level}
-            </span>
-          </TitleWrapper>
+              <span>
+                {school.name.toLocaleLowerCase()}, level {level}
+              </span>
+            </TitleWrapper>
 
-          <DetailsColumnsWrapper style={{ marginTop: "2rem" }}>
-            <DetailsColumn>
-              <DamageDetailsDisplay
-                title="Casting time:"
-                details={casting_time}
-              />
-
-              <DamageDetailsDisplay title="Range:" details={range} />
-
-              <DamageDetailsDisplay
-                title="Components:"
-                details={components.join(" ")}
-              />
-
-              <DamageDetailsDisplay title="Duration:" details={duration} />
-
-              <DamageDetailsDisplay
-                title="Material:"
-                details={material ?? "-"}
-              />
-
-              <DamageDetailsDisplay
-                title="Attack type:"
-                details={attack_type ? attack_type.toLocaleLowerCase() : "-"}
-              />
-
-              <DamageDetailsDisplay
-                title="Area of effect:"
-                details={
-                  area_of_effect
-                    ? `${area_of_effect.type.toLocaleLowerCase()}, ${
-                        area_of_effect.size
-                      } feet (${imperialToMetric(area_of_effect.size)}m)`
-                    : "-"
-                }
-              />
-
-              {damage && (
-                <>
-                  <DamageDetailsDisplay
-                    title="Damage type:"
-                    details={
-                      damage && damage.damage_type && damage.damage_type.name
-                        ? damage.damage_type.name
-                        : "-"
-                    }
-                  />
-
-                  <DamageDetailsDisplay
-                    title="Damage:"
-                    details={checkDamageDetails(damage)}
-                    tooltip={checkDamageTooltipType(damage)}
-                  />
-                </>
-              )}
-
-              {heal_at_slot_level && (
-                <HealingDetailsDisplay
-                  title="Healing:"
-                  details={heal_at_slot_level[0].healing ?? "-"}
-                  tooltip={{
-                    content: heal_at_slot_level,
-                    title: "Healing at spell level:",
-                  }}
-                />
-              )}
-
-              {dc && (
+            <DetailsColumnsWrapper style={{ marginTop: "2rem" }}>
+              <DetailsColumn>
                 <DamageDetailsDisplay
-                  title="DC:"
-                  details={`${SaveRolls[dc.type.name]}`}
+                  title="Casting time:"
+                  details={casting_time}
                 />
-              )}
-            </DetailsColumn>
 
-            <ColumnWithTitle style={{ alignItems: "flex-end" }}>
-              <span
-                style={{
-                  color: concentration ? "#528173" : "#EF767A",
-                  width: "12rem",
-                }}
-              >
-                {concentration ? "✔️" : "❌"} Concentration
-              </span>
+                <DamageDetailsDisplay title="Range:" details={range} />
 
-              <span style={{ color: ritual ? "#528173" : "#EF767A" }}>
-                {ritual ? "✔️" : "❌"} Ritual
-              </span>
+                <DamageDetailsDisplay
+                  title="Components:"
+                  details={components.join(" ")}
+                />
+
+                <DamageDetailsDisplay title="Duration:" details={duration} />
+
+                <DamageDetailsDisplay
+                  title="Material:"
+                  details={material ?? "-"}
+                />
+
+                <DamageDetailsDisplay
+                  title="Attack type:"
+                  details={attack_type ? attack_type.toLocaleLowerCase() : "-"}
+                />
+
+                <DamageDetailsDisplay
+                  title="Area of effect:"
+                  details={
+                    area_of_effect
+                      ? `${area_of_effect.type.toLocaleLowerCase()}, ${
+                          area_of_effect.size
+                        } feet (${imperialToMetric(area_of_effect.size)}m)`
+                      : "-"
+                  }
+                />
+
+                {damage && (
+                  <>
+                    <DamageDetailsDisplay
+                      title="Damage type:"
+                      details={
+                        damage && damage.damage_type && damage.damage_type.name
+                          ? damage.damage_type.name
+                          : "-"
+                      }
+                    />
+
+                    <DamageDetailsDisplay
+                      title="Damage:"
+                      details={checkDamageDetails(damage)}
+                      tooltip={checkDamageTooltipType(damage)}
+                    />
+                  </>
+                )}
+
+                {heal_at_slot_level && (
+                  <HealingDetailsDisplay
+                    title="Healing:"
+                    details={heal_at_slot_level[0].healing ?? "-"}
+                    tooltip={{
+                      content: heal_at_slot_level,
+                      title: "Healing at spell level:",
+                    }}
+                  />
+                )}
+
+                {dc && (
+                  <DamageDetailsDisplay
+                    title="DC:"
+                    details={`${SaveRolls[dc.type.name]}`}
+                  />
+                )}
+              </DetailsColumn>
+
+              <ColumnWithTitle style={{ alignItems: "flex-end" }}>
+                <span
+                  style={{
+                    color: concentration ? "#528173" : "#EF767A",
+                    width: "12rem",
+                  }}
+                >
+                  {concentration ? "✔️" : "❌"} Concentration
+                </span>
+
+                <span style={{ color: ritual ? "#528173" : "#EF767A" }}>
+                  {ritual ? "✔️" : "❌"} Ritual
+                </span>
+              </ColumnWithTitle>
+            </DetailsColumnsWrapper>
+
+            <ColumnWithTitle style={{ marginTop: "2rem" }}>
+              {desc}
             </ColumnWithTitle>
-          </DetailsColumnsWrapper>
 
-          <ColumnWithTitle style={{ marginTop: "2rem" }}>
-            {desc}
-          </ColumnWithTitle>
+            <ColumnWithTitle style={{ marginTop: "2rem" }}>
+              <span>Higher level</span>
+              {higher_level ?? "No effect"}
+            </ColumnWithTitle>
 
-          <ColumnWithTitle style={{ marginTop: "2rem" }}>
-            <span>Higher level</span>
-            {higher_level ?? "No effect"}
-          </ColumnWithTitle>
-
-          <ClassIcons classes={classes} />
-        </ContentWrapper>
-      </SingleSpellCardWrapper>
-    </SpellDetailsWrapper>
+            <ClassIcons classes={classes} />
+          </ContentWrapper>
+        </SingleSpellCardWrapper>
+      </SpellDetailsWrapper>
+    </div>
   );
 };
 
