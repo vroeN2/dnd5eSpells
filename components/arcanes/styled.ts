@@ -15,6 +15,7 @@ export const ArcanesWrapper = styled(FlexDiv)`
   position: relative;
   background: url("/assets/bg_1.png") no-repeat center center fixed;
   background-size: cover;
+  clip-path: polygon(100% 0%, 100% 90%, 0% 100%, 0% 10%);
 `;
 
 export const ListWrapper = styled(FlexDiv)`
@@ -41,6 +42,7 @@ export const SpellDetailsWrapper = styled(FlexDiv)`
   background: url("/assets/bg_2.png") no-repeat center center fixed;
   background-size: cover;
   z-index: 1;
+  clip-path: polygon(100% 0%, 100% 90%, 0% 100%, 0% 10%);
 `;
 
 export const SingleSpellCardWrapper = styled(FlexDiv)`

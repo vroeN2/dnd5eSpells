@@ -1,15 +1,16 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   ArcanesWrapper,
   ListWrapper,
   LoadingComponent,
 } from "../../components/arcanes/styled";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { LowDetailsSpell } from "../../interfaces/Spell";
 import Spellcard from "../../components/Spellcard";
 import Searchbar from "../../components/Searchbar";
 import Loading from "../../components/Loading";
+import { useFetchSpells } from "../../components/hooks/useFetchSpells";
+import Image from "next/image";
 
 export interface FilterValues {
   textContent: string;
@@ -22,75 +23,40 @@ export interface FilterValues {
 }
 
 const Arcanes = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [allSpells, setAllSpells] = useState<LowDetailsSpell[]>([]);
+  const { isLoading, allSpells } = useFetchSpells();
   const [filteredSpells, setFilteredSpells] =
     useState<LowDetailsSpell[]>(allSpells);
 
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchSpells = async () => {
-      const client = new ApolloClient({
-        uri: "https://www.dnd5eapi.co/graphql",
-        cache: new InMemoryCache(),
-      });
-
-      const { data } = await client.query({
-        query: gql`
-          query Spells {
-            spells(limit: 350) {
-              index
-              casting_time
-              classes {
-                name
-              }
-              components
-              concentration
-              desc
-              duration
-              level
-              name
-              range
-              ritual
-              school {
-                name
-                index
-              }
-            }
-          }
-        `,
-      });
-
-      setAllSpells(data.spells);
-      setIsLoading(false);
-    };
-
-    fetchSpells();
-  }, []);
-
   return (
-    <ArcanesWrapper>
-      <Head>
-        <title>List of Arcanes</title>
-        <meta name="description" content="List of spells from DnD 5" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div
+      style={{
+        background:
+          "linear-gradient(160deg, rgba(35,57,46,1) 0%, rgba(31,31,31,1) 100%)",
+      }}
+    >
+      <ArcanesWrapper>
+        <Head>
+          <title>List of Arcanes</title>
+          <meta name="description" content="List of spells from DnD 5" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <ListWrapper>
-        <Searchbar spells={allSpells} setFilteredSpells={setFilteredSpells} />
+        <ListWrapper>
+          <Searchbar spells={allSpells} setFilteredSpells={setFilteredSpells} />
 
-        {isLoading && (
-          <LoadingComponent>
-            <Loading />
-          </LoadingComponent>
-        )}
+          {isLoading && (
+            <LoadingComponent>
+              <Loading />
+            </LoadingComponent>
+          )}
 
-        {!isLoading &&
-          filteredSpells.map((spell) => {
-            return <Spellcard spell={spell} key={spell.index} />;
-          })}
-      </ListWrapper>
-    </ArcanesWrapper>
+          {!isLoading &&
+            filteredSpells.map((spell) => {
+              return <Spellcard spell={spell} key={spell.index} />;
+            })}
+        </ListWrapper>
+      </ArcanesWrapper>
+    </div>
   );
 };
 

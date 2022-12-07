@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
+    "@react-spring/parallax": "^9.5.5",
     "@reduxjs/toolkit": "^1.8.6",
     "antd": "^4.24.1",
     "graphql": "^16.6.0",
