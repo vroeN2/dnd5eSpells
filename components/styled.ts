@@ -17,8 +17,11 @@ export const HorizontalLine = styled.hr`
 `;
 
 export const MainWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  overflow-y: scroll;
+  background: rgb(35, 57, 46);
+  background: linear-gradient(
+    121deg,
+    rgba(35, 57, 46, 1) 30%,
+    rgba(82, 129, 115, 1) 60%,
+    rgba(31, 31, 31, 1) 95%
+  );
 `;

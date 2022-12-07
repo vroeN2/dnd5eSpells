@@ -1,23 +1,77 @@
-import React from "react";
-import { SlideDescription, SlideHeader, SlideWrapper } from "./styled";
+import React, { MutableRefObject } from "react";
+import { SlideDescription, SlideHeader } from "./styled";
 import { BackgroundImage } from "../../pages";
+import { IParallax, ParallaxLayer } from "@react-spring/parallax";
+import Image from "next/image";
 
-const HomepageSlideWrapper: React.FC<BackgroundImage> = ({
+interface Homepage extends BackgroundImage {
+  wrapperOffset: number;
+  parallax: MutableRefObject<IParallax>;
+}
+
+const HomepageSlideWrapper: React.FC<Homepage> = ({
   url,
   textContent,
+  wrapperOffset,
+  parallax,
 }) => {
-  const { header, description, style } = textContent;
-  const { headerText, headerStyle } = header;
-  const { descriptionText, descriptionStyle } = description;
+  const { header, description } = textContent;
+  const { headerText, headerStyle, headerOffset, headerSpeed } = header;
+  const {
+    descriptionText,
+    descriptionStyle,
+    descriptionOffset,
+    descriptionSpeed,
+  } = description;
 
   return (
-    <SlideWrapper bgURL={url} style={style}>
-      <SlideHeader style={headerStyle}>{headerText}</SlideHeader>
+    <>
+      <ParallaxLayer
+        offset={wrapperOffset}
+        speed={0.5}
+        onClick={() =>
+          parallax.current.scrollTo(wrapperOffset === 2 ? 0 : wrapperOffset + 1)
+        }
+      >
+        <Image
+          alt={`background_${wrapperOffset}`}
+          src={`/${url}`}
+          fill
+          style={{ clipPath: "polygon(100% 0%,100% 90%,0% 100%,0% 10%)" }}
+        />
+      </ParallaxLayer>
 
-      <SlideDescription style={descriptionStyle}>
-        {descriptionText}
-      </SlideDescription>
-    </SlideWrapper>
+      <ParallaxLayer
+        offset={headerOffset}
+        speed={headerSpeed}
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+        onClick={() =>
+          parallax.current.scrollTo(wrapperOffset === 2 ? 0 : wrapperOffset + 1)
+        }
+      >
+        <SlideHeader style={headerStyle}>{headerText}</SlideHeader>
+      </ParallaxLayer>
+
+      <ParallaxLayer
+        offset={descriptionOffset}
+        speed={descriptionSpeed}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        onClick={() =>
+          parallax.current.scrollTo(wrapperOffset === 2 ? 0 : wrapperOffset + 1)
+        }
+      >
+        <SlideDescription style={descriptionStyle}>
+          {descriptionText}
+        </SlideDescription>
+      </ParallaxLayer>
+    </>
   );
 };
 

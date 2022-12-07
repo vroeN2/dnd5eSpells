@@ -11,9 +11,6 @@ export const SlideWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  background: url(${(props: SlideProps) => props.bgURL}) no-repeat center center
-    fixed;
-  background-size: cover;
 `;
 
 export const SlideHeader = styled.h2`
