@@ -1,8 +1,11 @@
 import React, { MutableRefObject } from "react";
-import { SlideDescription, SlideHeader } from "./styled";
+import {
+  BackgroundImageWrapper,
+  SlideDescription,
+  SlideHeader,
+} from "./styled";
 import { BackgroundImage } from "../../pages";
 import { IParallax, ParallaxLayer } from "@react-spring/parallax";
-import Image from "next/image";
 
 interface Homepage extends BackgroundImage {
   wrapperOffset: number;
@@ -32,12 +35,15 @@ const HomepageSlideWrapper: React.FC<Homepage> = ({
         onClick={() =>
           parallax.current.scrollTo(wrapperOffset === 2 ? 0 : wrapperOffset + 1)
         }
+        style={{
+          overflow: "hidden",
+          filter: "drop-shadow(-1px 6px 30px #23392E)",
+        }}
       >
-        <Image
+        <BackgroundImageWrapper
           alt={`background_${wrapperOffset}`}
           src={`/${url}`}
           fill
-          style={{ clipPath: "polygon(100% 0%,100% 90%,0% 100%,0% 10%)" }}
         />
       </ParallaxLayer>
 

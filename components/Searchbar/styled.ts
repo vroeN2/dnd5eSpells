@@ -4,7 +4,7 @@ import { Input, Select, Checkbox, Button } from "antd";
 export const SearchbarWrapper = styled.div`
   transition: 0.15s all ease;
   background: rgba(255, 255, 255, 0.8);
-  z-index: 3;
+  z-index: 10;
   width: 80vw;
   height: 10vh;
   position: fixed;

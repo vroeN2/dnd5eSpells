@@ -9,7 +9,8 @@ const Background = styled.div`
   width: 100vw;
   min-height: 100vh;
   height: 100%;
-  clip-path: polygon(100% 0%, 100% 90%, 0% 100%, 0% 10%);
+  mask-image: url(/assets/mask.png);
+  mask-size: cover;
 `;
 
 const ErrorWrapper = styled.div`

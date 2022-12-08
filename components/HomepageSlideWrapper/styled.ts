@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styled from "styled-components";
 
 export interface SlideProps {
@@ -16,4 +17,10 @@ export const SlideDescription = styled.h3`
   max-width: 17%;
   color: white;
   text-shadow: 0px 0px 5px #1f1f1f;
+`;
+
+export const BackgroundImageWrapper = styled(Image)`
+  mask-image: url(/assets/mask.png);
+  mask-size: cover;
+  object-fit: cover;
 `;
