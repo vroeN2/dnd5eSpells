@@ -2,8 +2,7 @@ import { useRef } from "react";
 import HomepageSlideWrapper from "../components/HomepageSlideWrapper";
 import CSS from "csstype";
 import Head from "next/head";
-import { MainWrapper } from "../components/styled";
-import { Parallax, ParallaxLayer, IParallax } from "@react-spring/parallax";
+import { Parallax, IParallax } from "@react-spring/parallax";
 
 export interface BackgroundImage {
   url: string;
@@ -37,7 +36,7 @@ export default function Home() {
             marginLeft: "10vw",
             textShadow: "0px 0px 5px #1f1f1f",
           },
-          headerOffset: 0.4,
+          headerOffset: 0.3,
           headerSpeed: 0.1,
         },
         description: {
@@ -46,7 +45,7 @@ export default function Home() {
           descriptionStyle: {
             textShadow: "0px 0px 5px #1f1f1f",
           },
-          descriptionOffset: 0.2,
+          descriptionOffset: 0.1,
           descriptionSpeed: 0.2,
         },
         style: {
@@ -130,6 +129,7 @@ export default function Home() {
         style={{
           background:
             "linear-gradient(160deg, rgba(35,57,46,1) 0%, rgba(31,31,31,1) 100%)",
+          overflow: "hidden",
         }}
       >
         {backgroundImages.map((image: BackgroundImage, index: number) => {

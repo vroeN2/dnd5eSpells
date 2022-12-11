@@ -1,5 +1,10 @@
 import React, { MutableRefObject } from "react";
-import { SlideDescription, SlideHeader } from "./styled";
+import {
+  ArrowDownWrapper,
+  SlideDescription,
+  SlideHeader,
+  StyledArrow,
+} from "./styled";
 import { BackgroundImage } from "../../pages";
 import { IParallax, ParallaxLayer } from "@react-spring/parallax";
 import Image from "next/image";
@@ -70,6 +75,32 @@ const HomepageSlideWrapper: React.FC<Homepage> = ({
         <SlideDescription style={descriptionStyle}>
           {descriptionText}
         </SlideDescription>
+      </ParallaxLayer>
+
+      <ParallaxLayer
+        offset={descriptionOffset}
+        speed={descriptionSpeed}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        onClick={() =>
+          parallax.current.scrollTo(wrapperOffset === 2 ? 0 : wrapperOffset + 1)
+        }
+      >
+        <ArrowDownWrapper
+          style={{
+            transform: `rotate(${wrapperOffset === 2 ? "180deg" : "0deg"})`,
+          }}
+          onClick={() =>
+            parallax.current.scrollTo(
+              wrapperOffset === 2 ? 0 : wrapperOffset + 1
+            )
+          }
+        >
+          <StyledArrow size="50px" direction={wrapperOffset === 2 ? 1 : 0} />
+        </ArrowDownWrapper>
       </ParallaxLayer>
     </>
   );
