@@ -67,25 +67,25 @@ export const StyledArrow = styled(IoIosArrowDown)<ArrowProps>`
 
   @keyframes popReverse {
     0% {
-      transform: translate(-50%, -50%) scale(1.25, 0.75);
+      transform: translate(-50%, -150%) scale(1.25, 0.75);
     }
     50% {
-      transform: translate(-50%, -150%) rotate(-15deg);
+      transform: translate(-50%, -50%) scale(1, 1);
     }
     55% {
-      transform: translate(-50%, -150%) rotate(15deg);
+      transform: translate(-50%, -50%) rotate(15deg);
     }
     60% {
-      transform: translate(-50%, -150%) rotate(-15deg);
+      transform: translate(-50%, -50%) rotate(-15deg);
     }
     65% {
-      transform: translate(-50%, -150%) rotate(15deg);
+      transform: translate(-50%, -50%) rotate(15deg);
     }
     70% {
-      transform: translate(-50%, -150%) scale(1, 1);
+      transform: translate(-50%, -50%) rotate(-15deg);
     }
     100% {
-      transform: translate(-50%, -50%) scale(1.25, 0.75);
+      transform: translate(-50%, -150%) scale(1.25, 0.75);
     }
   }
 `;
