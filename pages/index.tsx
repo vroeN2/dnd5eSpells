@@ -68,9 +68,8 @@ export default function Home() {
         description: {
           descriptionText: `And use build-in filters to make it even quicker\n\nIt is that easy`,
           descriptionStyle: {
-            width: "45%",
             textShadow: "0px 0px 5px #1f1f1f",
-            margin: "-10vh 0 0 -35vw",
+            margin: "0 0 0 -35vw",
             whiteSpace: "pre-wrap",
           },
           descriptionOffset: 1.1,
